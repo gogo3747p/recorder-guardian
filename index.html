@@ -2271,7 +2271,7 @@ $("xexp").onclick=()=>{xf.value=JSON.stringify(payload("*"));xf.select();msg.tex
 $("ximp").onclick=()=>{try{const n=importObj(JSON.parse(xf.value)).length;msg.textContent="已匯入 "+n+" 首曲子（含資料夾分類）。"}catch(e){msg.textContent="格式不對，請貼上由「顯示我的曲目」產生的內容。"}};
 const enc=s=>btoa(unescape(encodeURIComponent(s))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,""),
  dec=s=>{s=s.replace(/-/g,"+").replace(/_/g,"/");while(s.length%4)s+="=";return decodeURIComponent(escape(atob(s)))};
-let site="https://preeminent-panda-8bf364.netlify.app/";try{site=localStorage.getItem("rgSite")||site}catch(e){}
+let site="https://gogo3747p.github.io/recorder-guardian/";try{const v=localStorage.getItem("rgSite");if(v&&!/recordertesttest|preeminent-panda/.test(v))site=v}catch(e){}
 $("site").value=site;$("site").onchange=()=>{try{localStorage.setItem("rgSite",$("site").value.trim())}catch(e){}};
 function fillSel(){const s=$("shsel"),ks=Object.keys(U);s.innerHTML="";if(!ks.length){s.add(new Option("（還沒有掃描的曲子）",""));return}ks.forEach(k=>s.add(new Option(k,k)));allFolders().forEach(f=>{const c=ks.filter(k=>gOf(k)===f).length;if(c)s.add(new Option("📁 資料夾「"+f+"」（"+c+" 首）","f:"+f))});s.add(new Option("全部自訂曲目（"+ks.length+" 首）","*"))}
 $("share").addEventListener("toggle",()=>{if($("share").open)fillSel()});
@@ -2758,7 +2758,8 @@ let muted=false,busy=false,timer=0,state="",lastErr="";
 const gm=()=>{try{return JSON.parse(ls.getItem(MK))||{}}catch(e){return{}}};
 let M0=Object.assign({code:"",cfgT:0,cls:{},dc:false,dk:{},at:0},gm());M0.cls=M0.cls||{};M0.dk=M0.dk||{};
 const save=()=>{muted=true;try{raw.set.call(ls,MK,JSON.stringify(M0))}catch(e){}muted=false};
-const API=()=>{const h=location.hostname;if(/netlify\.app$/.test(h)||/^(localhost|127\.0\.0\.1)$/.test(h)||location.protocol==="https:"&&!/claude\.ai|claudeusercontent|anthropic/.test(h))return location.origin+"/api/sync";let s="https://preeminent-panda-8bf364.netlify.app/";try{s=ls.getItem("rgSite")||s}catch(e){}return s.replace(/\/?$/,"/")+"api/sync"};
+const SYNC_API="https://preeminent-panda-8bf364.netlify.app/api/sync";
+const API=()=>{const h=location.hostname;return /netlify\.app$/.test(h)||/^(localhost|127\.0\.0\.1)$/.test(h)?location.origin+"/api/sync":SYNC_API};
 const CL=()=>{try{return JSON.parse(ls.getItem("rgClasses"))||{list:[]}}catch(e){return{list:[]}}};
 const bk=(id,k)=>"rgC:"+id+":"+k;
 function mark(k){if(muted||!M0.code||k===MK)return;let hit=false;if(GK.includes(k)){M0.dc=true;hit=true}else if(PK.includes(k)){const c=CL().cur;if(c){M0.dk[c]=true;hit=true}}else{const m=/^rgC:([^:]+):(.+)$/.exec(k);if(m&&PK.includes(m[2])){M0.dk[m[1]]=true;hit=true}}if(hit){save();clearTimeout(timer);timer=setTimeout(()=>push(),4000);dot()}}
@@ -2775,7 +2776,7 @@ function mergeCls(rem,loc){const o=Object.assign({},rem,nn(loc));["rgStars","rgB
  const pa=J(rem.rgProf),pb=J(loc.rgProf);if(pa&&pb&&(+pa.exp||0)>(+pb.exp||0)){pb.exp=pa.exp;o.rgProf=JSON.stringify(pb)}return o}
 function mergeCfg(rem,loc){const o=Object.assign({},rem,nn(loc)),a=J(rem.rgUser),b=J(loc.rgUser);if(a&&b)o.rgUser=JSON.stringify(Object.assign({},a,b));const ca=J(rem.rgClasses),cb=J(loc.rgClasses);if(ca&&cb&&Array.isArray(ca.list)&&Array.isArray(cb.list)){const ids=new Set(cb.list.map(c=>c.id));cb.list=cb.list.concat(ca.list.filter(c=>!ids.has(c.id)&&!(M0.gone||[]).includes(c.id)));o.rgClasses=JSON.stringify(cb)}return o}
 async function get(){const r=await fetch(API()+"?code="+encodeURIComponent(M0.code),{cache:"no-store"});if(!r.ok)throw new Error("HTTP "+r.status);return r.json()}
-async function send(part,d){const r=await fetch(API(),{method:"PUT",headers:{"content-type":"application/json"},body:JSON.stringify({code:M0.code,part,d})});if(!r.ok)throw new Error("HTTP "+r.status);const o=await r.json();if(part.startsWith("cls/")&&o.d){const id=part.slice(4),cur=readCls(id);if(PK.some(k=>(o.d[k]??null)!==(cur[k]??null))){writeCls(id,o.d);if(id===CL().cur)banner()}}return o.t}
+async function send(part,d){const r=await fetch(API(),{method:"POST",headers:{"content-type":"text/plain;charset=UTF-8"},body:JSON.stringify({code:M0.code,part,d})});if(!r.ok)throw new Error("HTTP "+r.status);const o=await r.json();if(part.startsWith("cls/")&&o.d){const id=part.slice(4),cur=readCls(id);if(PK.some(k=>(o.d[k]??null)!==(cur[k]??null))){writeCls(id,o.d);if(id===CL().cur)banner()}}return o.t}
 const playing=()=>{const m=document.getElementById("menu");return!m||m.hidden||m.style.visibility==="hidden"};
 // 下載：把別台平板的新資料寫進這台
 async function pull(boot){if(!M0.code||busy)return;busy=true;state="sync";dot();let reload=false;
@@ -2803,7 +2804,7 @@ const tm=t=>t?new Date(t).toLocaleString("zh-TW",{month:"numeric",day:"numeric",
 function open(){if(!panel){panel=document.createElement("div");panel.className="sheet";panel.id="sh-sync";panel.style.cssText="position:fixed;z-index:60";panel.innerHTML=`<div class="sp" role="dialog" aria-label="雲端同步" style="max-width:640px"><div class="sh"><span>☁️ 雲端同步</span><button class="sx" aria-label="關閉">✕</button></div><div class="sc"></div></div>`;document.body.appendChild(panel);panel.querySelector(".sx").onclick=()=>panel.hidden=true;panel.onclick=e=>{if(e.target===panel)panel.hidden=true;act(e)}}panel.hidden=false;draw()}
 function draw(){const c=panel.querySelector(".sc"),on=!!M0.code;
  c.innerHTML=`<p class="sub" style="font-size:17px;line-height:1.7">每台平板輸入<b>同一組同步代碼</b>，就會共用：<br>📚 曲目、資料夾、城堡曲目、魔法卡、班級名單<br>🏫 各班的等級、金幣、星星、任務進度、排行榜<br><small>代碼就像密碼，請不要告訴學生。主題、節拍器等「這台平板的顯示設定」不會同步。</small></p>
- ${on?`<div class="qr done"><div class="qi">${state==="err"?"⚠️":"✅"}</div><div><div class="qt">已連線：${M0.code.replace(/./g,(ch,i)=>i<2?ch:"•")}</div><div class="qd">${state==="err"?`<span style="color:#c62828">連線失敗（${lastErr}）。網站要連結 GitHub 後才有雲端功能；沒有網路時會先存在這台，連上後自動補傳。</span>`:`上次同步：${tm(M0.at)}${M0.dc||Object.keys(M0.dk).length?"　（有資料等待上傳）":""}`}</div></div><div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end"><button class="qa claim" data-sy="now">🔄 立即同步</button><button class="qa" data-sy="off">中斷</button></div></div>`
+ ${on?`<div class="qr done"><div class="qi">${state==="err"?"⚠️":"✅"}</div><div><div class="qt">已連線：${M0.code.replace(/./g,(ch,i)=>i<2?ch:"•")}</div><div class="qd">${state==="err"?`<span style="color:#c62828">暫時無法上傳到雲端（${lastErr}）。資料會先存在這台平板，雲端恢復後會自動補傳，不會遺失。</span>`:`上次同步：${tm(M0.at)}${M0.dc||Object.keys(M0.dk).length?"　（有資料等待上傳）":""}`}</div></div><div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end"><button class="qa claim" data-sy="now">🔄 立即同步</button><button class="qa" data-sy="off">中斷</button></div></div>`
  :`<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:center;margin:10px 0"><input id="sycode" placeholder="自訂同步代碼（至少 4 個字）" style="font-size:20px;padding:8px 12px;border-radius:12px;border:3px solid #e2c98a;min-width:min(320px,80vw)" autocomplete="off"><button class="qa claim" data-sy="link" style="font-size:20px">連線</button></div><div id="syask"></div>`}
  <p class="sub" style="font-size:14px;text-align:center;margin-top:14px">每次玩完、改完設定會自動上傳；打開遊戲和回到大廳時會自動下載別台的新資料。</p>`}
 async function act(e){const b=e.target.closest("[data-sy]");if(!b)return;const k=b.dataset.sy,c=panel.querySelector(".sc");
@@ -2811,7 +2812,7 @@ async function act(e){const b=e.target.closest("[data-sy]");if(!b)return;const k
  if(k==="off"){M0={code:"",cfgT:0,cls:{},dc:false,dk:{},at:0};save();state="";dot();draw();return}
  if(k==="link"){const v=(c.querySelector("#sycode").value||"").trim();if(!/^[A-Za-z0-9_\-一-鿿]{4,40}$/.test(v)){c.querySelector("#syask").innerHTML=`<p style="color:#c62828;text-align:center">代碼要 4～40 個字，只能用中英文、數字、- 或 _。</p>`;return}
   M0.code=v;let R;c.querySelector("#syask").innerHTML=`<p style="text-align:center">🔄 連線中…</p>`;
-  try{R=await get()}catch(err){M0.code="";c.querySelector("#syask").innerHTML=`<p style="color:#c62828;text-align:center">無法連線雲端（${err.message}）。<br>網站需要先連結 GitHub、由 Netlify 自動部署後才有雲端功能。</p>`;return}
+  try{R=await get()}catch(err){M0.code="";c.querySelector("#syask").innerHTML=`<p style="color:#c62828;text-align:center">無法連線雲端（${err.message}）。<br>請確認網路，稍後再試。</p>`;return}
   const has=R.cfg||Object.keys(R.cls).length;
   if(!has){save();state="ok";await push(true);draw();return}
   c.querySelector("#syask").innerHTML=`<div class="qr"><div class="qi">☁️</div><div><div class="qt">雲端上已經有這組代碼的資料</div><div class="qd">雲端資料最後更新：${tm(Math.max(R.cfg?R.cfg.t:0,...Object.values(R.cls).map(x=>x.t)))}，共 ${R.cfg?(J(R.cfg.d.rgClasses)||{list:[]}).list.length:0} 個班級</div></div></div>
@@ -2831,7 +2832,7 @@ window.rgSync={pull,push,meta:()=>M0};
 @keyframes sybn{50%{transform:translateX(-50%) scale(1.05)}}
 </style>
 
-<div id="rgver" aria-label="遊戲版本">版本 2026.11.09</div>
+<div id="rgver" aria-label="遊戲版本">版本 2026.11.09b</div>
 <style>#rgver{position:fixed;left:8px;bottom:6px;z-index:2;font:700 12px/1.2 sans-serif;color:rgba(255,255,255,.75);text-shadow:0 1px 2px #000;pointer-events:none}</style>
 </body>
 </html>
