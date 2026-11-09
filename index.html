@@ -1605,6 +1605,34 @@ button.rs{cursor:pointer}.rs.on{border-color:#4ade80}
 #mpinfo .qr{background:#fff8e1;border:4px solid #e0a83a;box-shadow:0 -6px 20px rgba(0,0,0,.3);margin:0}
 .mpempty{padding:40px 20px;text-align:center;color:#1d2b4f}
 @media (max-width:700px){.mptip{display:none}}
+#pfrk{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:4px;border-radius:999px}
+#pfrk i{font-style:normal;font-size:13px;color:#ffe9a8}
+#pfrk:hover .rk,#pfrk:focus-visible .rk{filter:brightness(1.15);box-shadow:0 0 0 3px #ffe9a8}
+.tpbar{height:16px;border-radius:9px;background:#e8dcc0;overflow:hidden;margin-top:8px;border:2px solid #c9b07a}
+.tpbar i{display:block;height:100%;background:linear-gradient(90deg,var(--rc),#ffe14d)}
+.tgain{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;background:#fff;border:3px solid #e2c98a;border-radius:16px;padding:10px 14px;margin:12px 0;font-size:17px}
+.tgain small{flex-basis:100%;color:#6b5a30;font-size:15px}
+.tierg{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.tcard{background:#fff;border:4px solid var(--rc);border-radius:18px;padding:10px 12px;box-shadow:0 5px 0 rgba(0,0,0,.12)}
+.tcard.cur{box-shadow:0 0 0 4px #ffe14d,0 0 24px var(--rc)}
+.tcard.lock{opacity:.72}
+.tcard .th{display:flex;align-items:center;gap:8px;font-size:22px;color:var(--rc);margin-bottom:6px}
+.tcard .th span{font-size:34px}
+.tcard .tr{display:grid;grid-template-columns:1fr auto;grid-template-areas:"n e" "s e";padding:6px 8px;border-radius:10px;align-items:center}
+.tcard .tr span{grid-area:n;font-weight:900}.tcard .tr small{grid-area:s;color:#6b5a30}.tcard .tr em{grid-area:e;font-style:normal;font-size:14px;font-weight:700;color:#6b5a30}
+.tcard .tr.now{background:#fff3b0}
+/* 下方按鈕列不要擋住左右兩側的按鈕（例如「證書設定」） */
+#hubb{pointer-events:none}#hubb .ib,#hubb button{pointer-events:auto}
+#hubl,#hubr{z-index:5}
+@media (max-height:780px){#hubl{transform:scale(.84);transform-origin:top left}#hubr{transform:scale(.84);transform-origin:top right}#hubl,#hubr{gap:8px}}
+@media (max-height:660px){#hubl{transform:scale(.8)}#hubr{transform:scale(.8)}#hubl,#hubr{gap:4px}}
+.gtabs{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:8px 0 4px}
+.gtabs .qa{font-size:18px}
+.gwho{text-align:center;color:#6b5a30;font-size:15px;margin:4px 0 12px}
+.gsel{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:4px;font-size:15px;color:#4a5a80}
+.gsel select{font-size:15px;padding:2px 6px;border-radius:8px}
+.gsel small{color:#2e7d32;font-weight:700}
+.gtag{display:inline-block;background:#e53935;color:#fff;border-radius:999px;padding:1px 10px;margin-right:6px;font-size:.85em}
 </style>
 </head>
 <body>
@@ -2272,16 +2300,17 @@ function clsSum(id){const pf=bget(id,"rgProf",{}),st=bget(id,"rgStars",{});let e
  const c=id===CLS.cur?coins():(+(()=>{try{return localStorage.getItem(bk(id,"rgCoins"))}catch(x){return 0}})()||0);
  return{l,c,s:Object.values(st||{}).reduce((a,v)=>a+(+v||0),0)}}
 function renderCls(){const c=$("sh-cls").querySelector(".sc");let picked=false;try{picked=!!sessionStorage.getItem("rgPicked")}catch(e){}
- c.innerHTML=`<p class="sub" style="text-align:center;font-size:18px">${picked||CLS.list.length<2?"":"<b>請先選擇現在上課的班級。</b><br>"}每個班級有自己的等級、金幣、任務、簽到、星星和最高分；曲目、資料夾和設定全部班級共用。</p>
- ${CLS.list.map(k=>{const m=clsSum(k.id),cur=k.id===CLS.cur;return`<div class="qr${cur?" done":""}"><div class="qi">🏫</div><div><div class="qt">${esc(k.name)}${cur?"　<small style='color:#2e7d32'>目前班級</small>":""}</div><div class="qw">Lv ${m.l}　💰 ${m.c}　⭐ ${m.s}</div></div><div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end"><button class="qa${cur?"":" claim"}" data-sw="${k.id}">${cur?"使用中":"切換"}</button><button class="qa" data-rn="${k.id}">改名</button>${cur?"":`<button class="qa" data-del="${k.id}">刪除</button>`}</div></div>`}).join("")}
+ c.innerHTML=`<p class="sub" style="text-align:center;font-size:18px">${picked||CLS.list.length<2?"":"<b>請先選擇現在上課的班級。</b><br>"}每個班級有自己的等級、金幣、任務、簽到、星星和最高分；曲目、資料夾和設定全部班級共用。任務曲目可以依年級分開設定。</p>
+ ${CLS.list.map(k=>{const m=clsSum(k.id),cur=k.id===CLS.cur;return`<div class="qr${cur?" done":""}"><div class="qi">🏫</div><div><div class="qt">${esc(k.name)}${cur?"　<small style='color:#2e7d32'>目前班級</small>":""}</div><div class="qw">Lv ${m.l}　💰 ${m.c}　⭐ ${m.s}</div><label class="gsel">📘 年級 <select data-grs="${k.id}" aria-label="${esc(k.name)}的年級"><option value="0">${gradeOf(k.name)?"自動（"+GN[gradeOf(k.name)-1]+"年級）":"自動（看不出年級）"}</option>${[1,2,3,4,5,6].map(g=>`<option value="${g}"${+k.g===g?" selected":""}>${GN[g-1]}年級</option>`).join("")}</select>${QCALL.g[clsGrade(k)]?`<small>使用${grName(clsGrade(k))}任務</small>`:"<small>使用預設任務</small>"}</label></div><div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end"><button class="qa${cur?"":" claim"}" data-sw="${k.id}">${cur?"使用中":"切換"}</button><button class="qa" data-rn="${k.id}">改名</button>${cur?"":`<button class="qa" data-del="${k.id}">刪除</button>`}</div></div>`}).join("")}
  <div class="qall" style="background:#fff;border-color:#e2c98a"><span style="font-size:30px">➕</span><input id="clsnew" maxlength="12" placeholder="新班級名稱，例如：六年一班" style="flex:1;font-size:20px;min-width:0" aria-label="新班級名稱"><button class="qa claim" id="clsadd">新增班級</button></div>`;
+ c.onchange=e=>{const sl=e.target.closest("[data-grs]");if(!sl)return;const k=CLS.list.find(x=>x.id===sl.dataset.grs);if(!k)return;const v=+sl.value;if(v)k.g=v;else delete k.g;LS.set("rgClasses",CLS);qcApply();renderCls();hubRefresh()};
  c.onclick=e=>{const b=e.target.closest("button");if(!b)return;
   if(b.id==="clsadd"){const n=String($("clsnew").value||"").replace(/[<>"]/g,"").trim().slice(0,12);if(!n){$("clsnew").focus();return}
    if(CLS.list.some(x=>x.name===n)){toast("已經有「"+esc(n)+"」了");return}
    const id="c"+Date.now().toString(36);CLS.list.push({id,name:n});LS.set("rgClasses",CLS);LS.set(bk(id,"rgProf"),{name:n,exp:0,av:"🎺",own:["🎺"]});
    if(confirm("已新增「"+n+"」。\n要現在切換到這個班級嗎？"))switchTo(id);else renderCls();return}
   if(b.dataset.sw){switchTo(b.dataset.sw);return}
-  if(b.dataset.rn){const k=CLS.list.find(x=>x.id===b.dataset.rn),n=String(prompt("班級新名稱：",k.name)||"").replace(/[<>"]/g,"").trim().slice(0,12);if(n&&n!==k.name){k.name=n;LS.set("rgClasses",CLS);if(k.id===CLS.cur)try{localStorage.setItem("rgClass",n)}catch(x){}}renderCls();hubRefresh();return}
+  if(b.dataset.rn){const k=CLS.list.find(x=>x.id===b.dataset.rn),n=String(prompt("班級新名稱：",k.name)||"").replace(/[<>"]/g,"").trim().slice(0,12);if(n&&n!==k.name){k.name=n;LS.set("rgClasses",CLS);qcApply();if(k.id===CLS.cur)try{localStorage.setItem("rgClass",n)}catch(x){}}renderCls();hubRefresh();return}
   if(b.dataset.del){const k=CLS.list.find(x=>x.id===b.dataset.del);if(!k||k.id===CLS.cur)return;if(!confirm("刪除「"+k.name+"」？\n這個班級的等級、金幣、任務和星星紀錄都會清除，無法復原。"))return;
    PKEYS.forEach(x=>{try{localStorage.removeItem(bk(k.id,x))}catch(e){}});CLS.list=CLS.list.filter(x=>x.id!==k.id);LS.set("rgClasses",CLS);renderCls();return}}}
 const wk=()=>{const d=new Date();d.setDate(d.getDate()-(d.getDay()+6)%7);return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()};
@@ -2419,9 +2448,17 @@ function hubRefresh(){if(!$("pfnm"))return;roll();const L=lvInfo();$("pfav").tex
  const k=counts();M.querySelectorAll('.bdg[data-b="q"]').forEach(b=>{b.hidden=!(k.d+k.s+k.m);b.textContent=k.d+k.s+k.m});M.querySelectorAll('.bdg[data-b="sign"]').forEach(b=>{b.hidden=!k.g;b.textContent="!"});
  const hv=$("hav");hv&&(hv.innerHTML=`<i>${PF.av}</i>${esc(curC().name)}・Lv ${L.l}`);tracker()}
 // ---- 老師自訂：主線任務／支線曲目任務 ----
-let QC=LS.get("rgQuestCfg",null);
-if(!QC||!Array.isArray(QC.main)){const pick=["瑪莉有隻小綿羊","快樂頌","小星星","夕陽中的銀髮・第一行","夕陽中的銀髮・第二行","夕陽中的銀髮・第三行","夕陽中的銀髮・第四行","夕陽中的銀髮"].filter(k=>SONGS[k]);QC={main:pick.map(k=>({k,s:2})),side:[]}}
-if(!Array.isArray(QC.side))QC.side=[];
+let QCALL=LS.get("rgQuestCfg",null);
+if(!QCALL||!Array.isArray(QCALL.main)){const pick=["瑪莉有隻小綿羊","快樂頌","小星星","夕陽中的銀髮・第一行","夕陽中的銀髮・第二行","夕陽中的銀髮・第三行","夕陽中的銀髮・第四行","夕陽中的銀髮"].filter(k=>SONGS[k]);QCALL={main:pick.map(k=>({k,s:2})),side:[]}}
+if(!Array.isArray(QCALL.side))QCALL.side=[];if(!QCALL.g||typeof QCALL.g!=="object"||Array.isArray(QCALL.g))QCALL.g={};
+// 年級任務：班級可手動指定年級（g），否則從班級名稱判斷（例如「四年一班」→ 4）
+const GRS=[3,4,5,6],grName=g=>GN[g-1]+"年級";
+const clsGrade=k=>k?(+k.g||gradeOf(k.name)||0):0;
+const cfgFor=g=>{const x=g&&QCALL.g[g];return x&&Array.isArray(x.main)?{main:x.main,side:Array.isArray(x.side)?x.side:[]}:{main:QCALL.main,side:QCALL.side}};
+let GRADE=clsGrade(CLS.list.find(c=>c.id===CLS.cur)),QC=cfgFor(GRADE);
+const ownG=()=>!!(GRADE&&QCALL.g[GRADE]);
+function qcApply(){GRADE=clsGrade(CLS.list.find(c=>c.id===CLS.cur));QC=cfgFor(GRADE)}
+function qcSave(){LS.set("rgQuestCfg",QCALL);qcApply()}
 let MQ=Object.assign({m:[],s:[]},LS.get("rgMQ",{}));
 const stOf=k=>+STARS[k]||0,mkey=(i,q)=>"m"+i+":"+q.k+":"+q.s,ckey=q=>"s:"+q.k+":"+q.s,mRew=i=>({c:60+20*i,x:50+10*i}),cRew=q=>({c:40+20*q.s,x:30+10*q.s});
 function mainWalk(){let open=true;return QC.main.map((q,i)=>{const ex=!!SONGS[q.k],st=ex?stOf(q.k):0,done=ex&&st>=q.s,r={q,i,ex,st,done,lock:false,got:MQ.m.includes(mkey(i,q))};if(!done)open=false;return r})}
@@ -2429,7 +2466,7 @@ const mainClaimable=()=>mainWalk().filter(r=>r.done&&!r.lock&&!r.got).length;
 const sideClaimable=()=>QC.side.filter(q=>SONGS[q.k]&&stOf(q.k)>=q.s&&!MQ.s.includes(ckey(q))).length;
 const mainCur=()=>mainWalk().find(r=>!r.done&&!r.lock&&r.ex);
 const stars3=(n,t)=>"★".repeat(n)+"☆".repeat(Math.max(0,(t||3)-n));
-function mainHTML(){const W=mainWalk();let h=`<div class="qall"><span style="font-size:32px">📖</span><b>主線任務：老師指定的曲子就是地圖上的城堡，每一章都可以自由挑戰，拿到指定星數就能攻下！</b><button class="qa" data-qe="1">⚙ 設定曲目</button></div>`;
+function mainHTML(){const W=mainWalk();let h=`<div class="qall"><span style="font-size:32px">📖</span><b>${ownG()?`<span class="gtag">${grName(GRADE)}任務</span>`:""}主線任務：老師指定的曲子就是地圖上的城堡，每一章都可以自由挑戰，拿到指定星數就能攻下！</b><button class="qa" data-qe="1">⚙ 設定曲目</button></div>`;
  if(!W.length)return h+`<p class="sub" style="text-align:center">老師還沒設定主線任務，按「⚙ 設定曲目」挑選曲子。</p>`;
  W.forEach(r=>{const R=mRew(r.i);h+=`<div class="qr${r.got?" got":r.done?" done":""}"${r.lock?' style="opacity:.55"':""}><div class="qi">${r.lock?"🔒":r.done?"🏆":"📜"}</div><div><div class="qt">第 ${r.i+1} 章　${esc(r.q.k)}</div><div class="qd">${r.ex?`拿到 ${"★".repeat(r.q.s)} 以上　目前 ${stars3(r.st)}`:"這首曲子已不存在，請重新設定"}</div><div class="qw">獎勵 💰${R.c}　⭐EXP ${R.x}</div></div>${r.got?`<button class="qa" disabled>已領取</button>`:r.done&&!r.lock?`<button class="qa claim" data-cm="${r.i}">領取</button>`:r.lock?`<button class="qa" disabled>未解鎖</button>`:r.ex?`<button class="qa" data-song="${esc(r.q.k)}">挑戰</button>`:`<button class="qa" disabled>—</button>`}</div>`});return h}
 function sideCustomHTML(){let h=`<div class="qall"><span style="font-size:32px">🎯</span><b>老師指定的支線曲目</b><button class="qa" data-qe="1">⚙ 設定曲目</button></div>`;
@@ -2440,22 +2477,33 @@ function sideCustomHTML(){let h=`<div class="qall"><span style="font-size:32px">
 function claimM(i){const r=mainWalk()[i];if(!r||!r.done||r.lock||r.got)return;MQ.m.push(mkey(i,r.q));LS.set("rgMQ",MQ);const R=mRew(i);gain(R.x,R.c);toast(`📖 主線第 ${i+1} 章完成！<br>💰 +${R.c}　⭐ EXP +${R.x}`,i===QC.main.length-1);renderQ()}
 function claimC(i){const q=QC.side[i];if(!q||!SONGS[q.k]||stOf(q.k)<q.s||MQ.s.includes(ckey(q)))return;MQ.s.push(ckey(q));LS.set("rgMQ",MQ);const R=cRew(q);gain(R.x,R.c);toast(`🎯 ${esc(q.k)} 完成！<br>💰 +${R.c}　⭐ EXP +${R.x}`);renderQ()}
 function goSong(k){[...M.querySelectorAll(".sheet")].forEach(s=>s.hidden=true);if(!SONGS[k])return;start(k).catch(err=>{$("micmsg").textContent="無法開始遊戲："+(err&&err.message||err)})}
-window.qcRename=(o,n)=>{[...QC.main,...QC.side].forEach(q=>{if(q.k===o)q.k=n});LS.set("rgQuestCfg",QC)};
-function qEdit(){const c=$("sh-q").querySelector(".sc"),E={main:QC.main.map(x=>({...x})),side:QC.side.map(x=>({...x}))},first=songKeys0()[0]||"";
+window.qcRename=(o,n)=>{[QCALL,...Object.values(QCALL.g)].forEach(x=>[...(x.main||[]),...(x.side||[])].forEach(q=>{if(q.k===o)q.k=n}));qcSave()};
+function qEdit(tg){const c=$("sh-q").querySelector(".sc"),first=songKeys0()[0]||"";
+ let G=tg!=null?tg:(GRS.includes(GRADE)?GRADE:0),E,dirty=false;
+ const load=g=>{const x=g&&QCALL.g[g]?QCALL.g[g]:QCALL;E={main:x.main.map(q=>({...q})),side:(x.side||[]).map(q=>({...q})),own:!g||!!QCALL.g[g]};dirty=false};load(G);
+ const clsIn=g=>CLS.list.filter(k=>clsGrade(k)===g).map(k=>k.name),others=()=>CLS.list.filter(k=>!QCALL.g[clsGrade(k)]).map(k=>k.name);
  const rowH=(q,i,kind)=>`<div class="qr qe" data-kind="${kind}" data-i="${i}"><div class="qi" style="font-size:22px;font-weight:900">${kind==="main"?"第"+(i+1)+"章":"🎯"}</div><div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><select class="qk" aria-label="曲目" style="min-width:min(260px,60vw);font-size:17px">${songOpts()}</select><select class="qs" aria-label="需要的星數" style="font-size:17px"><option value="1">★ 1 顆星</option><option value="2">★★ 2 顆星</option><option value="3">★★★ 3 顆星</option></select></div><div style="display:flex;gap:4px">${kind==="main"?`<button class="qa" data-up="1" aria-label="往前">↑</button><button class="qa" data-dn="1" aria-label="往後">↓</button>`:""}<button class="qa" data-rm="1" aria-label="刪除">🗑</button></div></div>`;
- const draw=()=>{c.innerHTML=`<p class="sub" style="text-align:center">選好曲子和需要的星數後按「儲存」。所有班級共用這份設定，各班的完成進度分開計算。</p>
+ const draw=()=>{const who=G?clsIn(G):others();
+  c.innerHTML=`<p class="sub" style="text-align:center">可以替不同年級設定不同的任務。班級名稱有「四年」「4年」時會自動判斷年級，也可以到「🏫 班級」手動指定。<br>沒有另外設定的年級，會使用「全部年級（預設）」的任務；各班的完成進度分開計算。</p>
+  <div class="gtabs" role="tablist">${[0,...GRS].map(g=>`<button class="qa${g===G?" claim":""}" role="tab" aria-selected="${g===G}" data-gt="${g}">${g?grName(g):"全部年級（預設）"}${g&&QCALL.g[g]?" ✏️":""}</button>`).join("")}</div>
+  <p class="gwho">${who.length?`套用的班級：${who.map(esc).join("、")}`:G?`目前沒有${grName(G)}的班級`:"目前所有班級都有自己年級的任務"}</p>
+  ${!E.own?`<div class="qall" style="background:#fff;border-color:#e2c98a;flex-wrap:wrap"><span style="font-size:30px">📋</span><b style="flex:1">${grName(G)}目前使用「全部年級（預設）」的任務。</b><button class="qa claim" data-gown="1" style="font-size:19px">✏️ 為${grName(G)}另外設定</button></div>`
+  :`${G?`<div class="qall" style="background:#fff8e1;border-color:#e0a83a;flex-wrap:wrap"><span style="font-size:30px">✏️</span><b style="flex:1">這是${grName(G)}專用的任務</b><button class="qa" data-gdel="1">改回使用預設任務</button></div>`:""}
   <h3>📖 主線任務（地圖城堡，可自由挑戰）</h3>${E.main.map((q,i)=>rowH(q,i,"main")).join("")||'<p class="sub">還沒有章節</p>'}<button class="qa" data-add="main" style="margin:0 0 16px">＋ 新增章節</button>
   <h3>🎯 支線曲目任務（不用照順序）</h3>${E.side.map((q,i)=>rowH(q,i,"side")).join("")||'<p class="sub">還沒有支線曲目</p>'}<button class="qa" data-add="side">＋ 新增支線曲目</button>
-  <div style="display:flex;gap:10px;justify-content:center;margin-top:18px"><button class="qa" data-cancel="1" style="font-size:20px">取消</button><button class="qa claim" data-save="1" style="font-size:20px;padding:8px 30px">💾 儲存</button></div>`;
-  c.querySelectorAll(".qe").forEach(r=>{const q=E[r.dataset.kind][+r.dataset.i],k=r.querySelector(".qk"),st=r.querySelector(".qs");k.value=q.k;if(k.value!==q.k)q.k=k.value;st.value=String(q.s);k.onchange=()=>{q.k=k.value};st.onchange=()=>{q.s=+st.value}})};
+  <div style="display:flex;gap:10px;justify-content:center;margin-top:18px"><button class="qa" data-cancel="1" style="font-size:20px">取消</button><button class="qa claim" data-save="1" style="font-size:20px;padding:8px 30px">💾 儲存${G?grName(G):"預設"}任務</button></div>`}`;
+  c.querySelectorAll(".qe").forEach(r=>{const q=E[r.dataset.kind][+r.dataset.i],k=r.querySelector(".qk"),st=r.querySelector(".qs");k.value=q.k;if(k.value!==q.k)q.k=k.value;st.value=String(q.s);k.onchange=()=>{q.k=k.value;dirty=true};st.onchange=()=>{q.s=+st.value;dirty=true}})};
  draw();c.scrollTop=0;
  c.onclick=e=>{const b=e.target.closest("button");if(!b)return;const r=b.closest(".qe"),L=r&&E[r.dataset.kind],i=r?+r.dataset.i:-1;
-  if(b.dataset.add){E[b.dataset.add].push({k:first,s:2});draw();return}
-  if(b.dataset.rm){L.splice(i,1);draw();return}
-  if(b.dataset.up&&i>0){[L[i-1],L[i]]=[L[i],L[i-1]];draw();return}
-  if(b.dataset.dn&&i<L.length-1){[L[i+1],L[i]]=[L[i],L[i+1]];draw();return}
+  if(b.dataset.gt!=null){const g=+b.dataset.gt;if(g===G)return;if(dirty&&!confirm("剛才的修改還沒儲存，要放棄嗎？"))return;G=g;load(G);draw();return}
+  if(b.dataset.gown){E.own=true;dirty=true;draw();return}
+  if(b.dataset.gdel){if(!confirm(grName(G)+"改回使用「全部年級（預設）」的任務？\n"+grName(G)+"專用的任務設定會刪除。"))return;delete QCALL.g[G];qcSave();load(G);draw();toast("已改回使用預設任務");hubRefresh();return}
+  if(b.dataset.add){E[b.dataset.add].push({k:first,s:2});dirty=true;draw();return}
+  if(b.dataset.rm){L.splice(i,1);dirty=true;draw();return}
+  if(b.dataset.up&&i>0){[L[i-1],L[i]]=[L[i],L[i-1]];dirty=true;draw();return}
+  if(b.dataset.dn&&i<L.length-1){[L[i+1],L[i]]=[L[i],L[i+1]];dirty=true;draw();return}
   if(b.dataset.cancel){renderQ();return}
-  if(b.dataset.save){QC={main:E.main.filter(q=>SONGS[q.k]),side:E.side.filter(q=>SONGS[q.k])};LS.set("rgQuestCfg",QC);toast("💾 任務曲目已儲存");renderQ(TAB==="d"?"m":TAB);hubRefresh()}}}
+  if(b.dataset.save){const cfg={main:E.main.filter(q=>SONGS[q.k]),side:E.side.filter(q=>SONGS[q.k])};if(G)QCALL.g[G]=cfg;else{QCALL.main=cfg.main;QCALL.side=cfg.side}qcSave();dirty=false;toast(`💾 ${G?grName(G):"預設"}任務已儲存`);draw();hubRefresh()}}}
 const songKeys0=()=>songGroups().gs.flatMap(x=>x[1]);
 const _tr=tracker;tracker=function(){_tr();const t=$("hqt"),k=counts(),n=k.d+k.s+k.m;
  if(n){t.innerHTML=`<div class="hh">📜 任務</div><div class="hr"><b>有 ${n} 個任務獎勵可以領取！</b><button class="qa claim" data-a="q">領取</button></div>`;return}
@@ -2465,11 +2513,21 @@ const _tr=tracker;tracker=function(){_tr();const t=$("hqt"),k=counts(),n=k.d+k.s
 // ===== 段位、排行榜、冒險地圖、配件、魔法卡 =====
 const TIERS=[["青銅","🥉","#b8763a",0],["白銀","🥈","#8a9bb3",120],["黃金","🥇","#e0a526",300],["白金","💠","#22a6d6",600],["鑽石","💎","#6366f1",1000],["大師","👑","#c026d3",1500],["傳說","🌟","#ef4444",2200]];
 const DIV=["III","II","I"];
-function rpCalc(stars,stat){stars=stars||{};const sSum=Object.keys(stars).reduce((a,k)=>a+(SONGS[k]?(+stars[k]||0):0),0),cas=QC.main.filter(q=>SONGS[q.k]&&(+stars[q.k]||0)>=q.s).length;return{rp:sSum*10+cas*40+((stat&&stat.wins)||0)*3,stars:sSum,cas}}
+function rpCalc(stars,stat,main){stars=stars||{};main=main||QC.main;const sSum=Object.keys(stars).reduce((a,k)=>a+(SONGS[k]?(+stars[k]||0):0),0),cas=main.filter(q=>SONGS[q.k]&&(+stars[q.k]||0)>=q.s).length;return{rp:sSum*10+cas*40+((stat&&stat.wins)||0)*3,stars:sSum,cas}}
 function rankOf(rp){let i=0;TIERS.forEach((t,k)=>{if(rp>=t[3])i=k});const t=TIERS[i],nx=TIERS[i+1];if(!nx)return{i,d:3,name:t[0],ic:t[1],col:t[2],lo:t[3],hi:null,next:null};
  const span=(nx[3]-t[3])/3,d=Math.min(2,Math.floor((rp-t[3])/span)),hi=Math.round(t[3]+(d+1)*span);return{i,d,name:t[0]+" "+DIV[d],ic:t[1],col:t[2],lo:Math.round(t[3]+d*span),hi,next:d<2?t[0]+" "+DIV[d+1]:nx[0]+" III"}}
 const myRP=()=>rpCalc(STARS,ST);
 const rkChip=r=>`<span class="rk" style="--rc:${r.col}">${r.ic} ${r.name}</span>`;
+// ---- 段位一覽：所有段位與需要的積分 ----
+function tierRows(){return TIERS.flatMap((t,i)=>{const nx=TIERS[i+1];if(!nx)return[{t,n:t[0],lo:t[3]}];const sp=(nx[3]-t[3])/3;return[0,1,2].map(d=>({t,n:t[0]+" "+DIV[d],lo:Math.round(t[3]+d*sp)}))})}
+function openTier(){mkSheet("tier","🏅 段位一覽");renderTier();openSheet("tier")}
+function renderTier(){const c=$("sh-tier").querySelector(".sc"),me=myRP(),R=rankOf(me.rp),rows=tierRows(),gap=R.hi?R.hi-me.rp:0,pct=R.hi?Math.round((me.rp-R.lo)/(R.hi-R.lo)*100):100;
+ c.innerHTML=`<div class="rkme" style="--rc:${R.col}"><div class="rkbig">${R.ic}</div><div style="flex:1;min-width:0"><div class="qt" style="font-size:24px">${esc(curC().name)}　${rkChip(R)}</div>
+  <div class="qw" style="font-size:17px">段位積分 <b>${me.rp}</b>${R.hi?`　再拿 <b>${gap}</b> 分升到「${R.next}」（大約再 ${Math.ceil(gap/10)} 顆⭐）`:"　已經是最高段位！"}</div>
+  <div class="tpbar"><i style="width:${pct}%"></i></div></div></div>
+ <div class="tgain"><b>怎麼拿段位積分？</b><span>⭐ 每 1 顆星 <b>+10</b></span><span>🏰 攻下 1 座城堡 <b>+40</b></span><span>🎵 每過關 1 次 <b>+3</b></span><small>目前：⭐ ${me.stars} 顆　🏰 ${me.cas} 座　🎵 過關 ${(ST&&ST.wins)||0} 次</small></div>
+ <div class="tierg">${TIERS.map((t,i)=>{const rs=rows.filter(r=>r.t===t);return`<div class="tcard${R.i===i?" cur":""}${me.rp<t[3]?" lock":""}" style="--rc:${t[2]}"><div class="th"><span>${t[1]}</span><b>${t[0]}</b></div>${rs.map(r=>{const isCur=r.n===R.name,ok=me.rp>=r.lo;return`<div class="tr${isCur?" now":""}"><span>${r.n}</span><small>${r.lo} 分</small><em>${isCur?"👉 目前":ok?"✅":`🔒 差 ${r.lo-me.rp}`}</em></div>`}).join("")}</div>`}).join("")}</div>
+ <p class="sub" style="text-align:center;font-size:15px">段位依「段位積分」計算；頭像旁的 Lv 等級是另外用經驗值（EXP）計算的。</p>`}
 // ---- 配件 ----
 const ACC=[
  {id:"h_crown",s:"h",ic:"👑",n:"金皇冠",p:600},{id:"h_tophat",s:"h",ic:"🎩",n:"紳士帽",p:250},{id:"h_cap",s:"h",ic:"🧢",n:"棒球帽",p:150},{id:"h_grad",s:"h",ic:"🎓",n:"博士帽",p:350},{id:"h_bow",s:"h",ic:"🎀",n:"蝴蝶結",p:150},{id:"h_halo",s:"h",ic:"😇",n:"天使光環",p:800},
@@ -2493,7 +2551,7 @@ function mkSheet(id,t){let s=$("sh-"+id);if(s)return s;s=document.createElement(
  s.querySelector(".sx").onclick=()=>closeSheet(s);s.onclick=e=>{if(e.target===s)closeSheet(s)};M.appendChild(s);return s}
 // ---- 排行榜 ----
 function renderRank(){const c=mkSheet("rank","🏆 班級排行榜").querySelector(".sc");
- const rows=CLS.list.map(k=>{const cur=k.id===CLS.cur,st=cur?STARS:bget(k.id,"rgStars",{}),sa=cur?ST:bget(k.id,"rgStat",{}),pf=cur?PF:bget(k.id,"rgProf",{});const r=rpCalc(st,sa);let e=(pf&&pf.exp)||0,l=1;while(e>=need(l)){e-=need(l);l++}return{k,cur,...r,lv:l,wins:(sa&&sa.wins)||0,av:(pf&&pf.av)||"🎺"}}).sort((a,b)=>b.rp-a.rp||b.stars-a.stars);
+ const rows=CLS.list.map(k=>{const cur=k.id===CLS.cur,st=cur?STARS:bget(k.id,"rgStars",{}),sa=cur?ST:bget(k.id,"rgStat",{}),pf=cur?PF:bget(k.id,"rgProf",{});const r=rpCalc(st,sa,cfgFor(clsGrade(k)).main);let e=(pf&&pf.exp)||0,l=1;while(e>=need(l)){e-=need(l);l++}return{k,cur,...r,lv:l,wins:(sa&&sa.wins)||0,av:(pf&&pf.av)||"🎺"}}).sort((a,b)=>b.rp-a.rp||b.stars-a.stars);
  const me=myRP(),R=rankOf(me.rp);
  c.innerHTML=`<div class="rkme" style="--rc:${R.col}"><div class="rkbig">${R.ic}</div><div style="flex:1"><div class="qt" style="font-size:24px">${esc(curC().name)}　${rkChip(R)}</div><div class="qw">段位積分 <b>${me.rp}</b>${R.hi?`　距離「${R.next}」還差 <b>${R.hi-me.rp}</b> 分`:"　已是最高段位！"}</div>${R.hi?`<div class="qb"><i style="width:${Math.round((me.rp-R.lo)/(R.hi-R.lo)*100)}%"></i></div>`:""}</div></div>
  <div class="rklist">${rows.map((x,i)=>{const r=rankOf(x.rp);return `<div class="rkr${x.cur?" me":""}"><div class="rkn">${i<3?["🥇","🥈","🥉"][i]:i+1}</div><div class="rkav">${x.cur?avHTML():x.av}</div><div style="flex:1;min-width:0"><div class="qt">${esc(x.k.name)}${x.cur?"　<small>（目前班級）</small>":""}</div><div>${rkChip(r)}</div></div><div class="rkst"><b>${x.rp}</b><small>積分</small></div><div class="rkst"><b>${x.stars}</b><small>⭐ 星星</small></div><div class="rkst"><b>${x.cas}</b><small>🏰 城堡</small></div><div class="rkst"><b>${x.lv}</b><small>等級</small></div></div>`}).join("")}</div>
@@ -2632,7 +2690,7 @@ renderShop=function(){const c=$("sh-shop").querySelector(".sc"),cn=coins(),tab=(
   renderShop();hubRefresh()}};
 // ---- 掛到大廳 ----
 const _hr=hubRefresh;hubRefresh=function(){_hr();if(!$("pfnm"))return;const av=$("pfbtn")||document.querySelector("#hubtop .pf .av");$("pfav").innerHTML=avHTML();const ac=document.querySelector("#hubtop .pf .av");ac&&(ac.style.cssText=frameSt());
- const R=rankOf(myRP().rp);let rk=$("pfrk");if(!rk){rk=document.createElement("span");rk.id="pfrk";$("pfti").after(rk)}rk.innerHTML=rkChip(R);
+ const R=rankOf(myRP().rp);let rk=$("pfrk");if(!rk){rk=document.createElement("button");rk.id="pfrk";rk.type="button";rk.setAttribute("aria-label","查看所有段位");rk.addEventListener("click",e=>{e.stopPropagation();e.preventDefault();openTier()});$("pfti").after(rk)}rk.innerHTML=rkChip(R)+"<i>▸</i>";
  const hv=$("hav");hv&&(hv.innerHTML=`<i>${avHTML()}</i>${esc(curC().name)}・${R.ic} ${R.name}`)};
 const _rp0=renderPf;renderPf=function(){_rp0();const a=$("sh-pf").querySelector(".av");if(a){a.style.cssText+=";"+frameSt();a.innerHTML=avHTML()+`<b>Lv ${lvInfo().l}</b>`}};
 const _os=openSheet;openSheet=function(id){if(id==="map"){mapFlash(()=>{const sh=mkSheet("map","🗺️ 冒險地圖");sh.classList.add("mpfull");document.body.appendChild(sh);[...M.querySelectorAll(".sheet")].forEach(x=>x.hidden=true);M.style.visibility="hidden";sh.hidden=false;renderMap()});return}if(id==="rank"){mkSheet("rank","🏆 班級排行榜");renderRank()}_os(id)};
