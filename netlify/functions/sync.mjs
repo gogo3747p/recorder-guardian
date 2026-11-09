@@ -1,6 +1,6 @@
 // 直笛守護者：雲端同步（Netlify Functions + Netlify Blobs）
 import { getStore } from "@netlify/blobs";
-const H={"content-type":"application/json; charset=utf-8","cache-control":"no-store","access-control-allow-origin":"*","access-control-allow-methods":"GET,PUT,OPTIONS","access-control-allow-headers":"content-type"};
+const H={"content-type":"application/json; charset=utf-8","cache-control":"no-store","access-control-allow-origin":"*","access-control-allow-methods":"GET,PUT,POST,OPTIONS","access-control-allow-headers":"content-type"};
 const okCode=c=>typeof c==="string"&&/^[A-Za-z0-9_\-\u4e00-\u9fff]{4,40}$/.test(c);
 const okPart=p=>typeof p==="string"&&/^(cfg|cls\/[A-Za-z0-9_\-]{1,40})$/.test(p);
 // 同一班兩台平板同時上傳時：星星、最高分取較高，完成的任務合併，經驗值取較高
@@ -12,7 +12,7 @@ function mergeCls(o,n){const r=Object.assign({},o,n);
   return r}
 const J=(o,s)=>new Response(JSON.stringify(o),{status:s||200,headers:H});
 export default async (req)=>{
-  if(req.method==="OPTIONS")return new Response("",{status:204,headers:H});
+  if(req.method==="OPTIONS")return new Response(null,{status:204,headers:H});
   const store=getStore({name:"rg-sync",consistency:"strong"});
   const url=new URL(req.url);
   if(req.method==="GET"){
@@ -20,7 +20,7 @@ export default async (req)=>{
     const {blobs}=await store.list({prefix:code+"/"});const out={cfg:null,cls:{},now:Date.now()};
     await Promise.all(blobs.map(async b=>{const v=await store.get(b.key,{type:"json"});const k=b.key.slice(code.length+1);if(!v)return;if(k==="cfg")out.cfg=v;else if(k.startsWith("cls/"))out.cls[k.slice(4)]=v}));
     return J(out)}
-  if(req.method==="PUT"){
+  if(req.method==="PUT"||req.method==="POST"){
     let b;try{b=await req.json()}catch(e){return J({error:"json"},400)}
     if(!okCode(b.code)||!okPart(b.part)||typeof b.d!=="object"||!b.d)return J({error:"bad"},400);
     const body=JSON.stringify(b.d);if(body.length>4e6)return J({error:"too big"},413);
