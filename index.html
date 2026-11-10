@@ -1633,6 +1633,80 @@ button.rs{cursor:pointer}.rs.on{border-color:#4ade80}
 .gsel select{font-size:15px;padding:2px 6px;border-radius:8px}
 .gsel small{color:#2e7d32;font-weight:700}
 .gtag{display:inline-block;background:#e53935;color:#fff;border-radius:999px;padding:1px 10px;margin-right:6px;font-size:.85em}
+.pkar{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center;margin:8px 0 14px}
+.pkr{border-radius:22px;padding:12px;text-align:center;color:#fff;display:flex;flex-direction:column;align-items:center;gap:4px;min-height:200px;justify-content:center;box-shadow:0 6px 0 rgba(0,0,0,.25)}
+.pkr.a{background:linear-gradient(160deg,#ff6b6b,#c62828)}.pkr.b{background:linear-gradient(160deg,#64b5f6,#1565c0)}
+.pkr small{font-size:18px;font-weight:900;opacity:.95}
+.pkr b{font-size:clamp(64px,11vw,120px);line-height:1;font-weight:900;text-shadow:0 4px 0 rgba(0,0,0,.25);min-width:1.6em;background:rgba(255,255,255,.18);border-radius:18px;padding:6px 10px}
+.pkr b.spin{animation:pkjit .1s linear infinite}.pkr b.land{animation:pkpop .45s ease-out}
+.pkr span{font-size:22px;font-weight:900;min-height:1.2em}.pkr em{font-style:normal;font-weight:900;background:#fff;color:#1d2b4f;border-radius:999px;padding:2px 12px}
+.pkr .qa{font-size:15px}
+@keyframes pkjit{50%{transform:translateY(-3px)}}@keyframes pkpop{0%{transform:scale(1.5)}60%{transform:scale(.92)}100%{transform:scale(1)}}
+.pkar .vs,.pkvs .vs{font-size:clamp(34px,6vw,60px);font-weight:900;color:#f5b301;text-shadow:0 3px 0 #7a4b20,0 0 18px #fff3a6}
+.pksong{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:center;font-size:19px;font-weight:900}
+.pksong select{font-size:18px;max-width:min(320px,70vw)}
+.pksong select.flash{animation:pkpop .5s ease-out;box-shadow:0 0 0 4px #ffe14d}
+.pkbtns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:14px 0}
+.qa.big2{font-size:24px;padding:10px 26px}
+.pkset{background:#fff;border:3px solid #e2c98a;border-radius:14px;padding:8px 14px;font-size:17px}
+.pkset summary{cursor:pointer;font-weight:900}.pkset label{display:inline-flex;align-items:center;gap:6px;margin:6px 14px 6px 0}
+.pkset textarea{display:block;width:100%;font-size:16px;margin-top:4px}
+.pkhist div{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:6px 10px;border-bottom:1px dashed #e2c98a;font-size:16px}
+.pkhist span{color:#6b5a30;font-size:14px}.pkhist b.w{color:#c62828}.pkhist b.w::after{content:" 👑"}.pkhist small{color:#6b5a30}
+#pkbox{margin-top:10px}#pkbox .big{font-size:28px}#pkbox button{margin:4px}
+.pkhint{font-size:clamp(18px,2.4vw,24px);font-weight:900}
+.pkvs{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;width:min(860px,94vw);margin:6px auto}
+.pkres{position:relative;border-radius:20px;padding:14px;color:#fff;text-align:center;opacity:.8}
+.pkres.a{background:linear-gradient(160deg,#ff6b6b,#c62828)}.pkres.b{background:linear-gradient(160deg,#64b5f6,#1565c0)}
+.pkres.win{opacity:1;transform:scale(1.06);box-shadow:0 0 0 5px #ffe14d,0 0 34px #ffe14d}
+.pkres .crown{position:absolute;top:-34px;left:50%;transform:translateX(-50%);font-size:48px;animation:pkpop .6s ease-out}
+.pkres .pkn{font-size:22px;font-weight:900}.pkres .pks{font-size:clamp(44px,8vw,80px);font-weight:900;line-height:1.1}.pkres .pkst{font-size:17px}
+@media (max-width:640px){.pkr{min-height:150px}.pkr span{font-size:18px}}
+#over.pkmode #certbtn,#over.pkfin #stars,#over.pkfin #oexp,#over.pkfin #ocoin{display:none!important}
+.pkmsg{text-align:center;font-weight:900;color:#c62828;font-size:18px;margin:6px 0 0;min-height:0}
+.rkdraw{display:flex;gap:16px;align-items:center;justify-content:center;flex-wrap:wrap}
+.rkreel{background:linear-gradient(160deg,#ffb74d,#e65100);color:#fff;border-radius:22px;padding:10px 18px;text-align:center;min-width:190px;box-shadow:0 6px 0 rgba(0,0,0,.25);display:flex;flex-direction:column;align-items:center}
+.rkreel small{font-weight:900;font-size:17px}.rkreel span{font-size:20px;font-weight:900;min-height:1.2em}
+.rkreel b{font-size:clamp(60px,10vw,104px);line-height:1;font-weight:900;text-shadow:0 4px 0 rgba(0,0,0,.25);background:rgba(255,255,255,.2);border-radius:16px;padding:4px 14px;min-width:1.6em}
+.rkreel b.spin{animation:pkjit .1s linear infinite}.rkreel b.land{animation:pkpop .45s ease-out}
+.rkctl{display:flex;flex-direction:column;gap:10px}.rkctl>div{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.rkctl select{font-size:18px}.rkctl input{font-size:18px;padding:6px 10px;border-radius:10px;border:3px solid #e2c98a;width:min(240px,60vw)}
+.rkchips{display:flex;flex-wrap:wrap;gap:8px}
+.rkchip{display:inline-flex;align-items:center;gap:6px;background:#fff;border:3px solid #3d86d6;border-radius:999px;padding:4px 6px 4px 4px;font-weight:900;font-size:18px}
+.rkchip i{font-style:normal;background:#3d86d6;color:#fff;border-radius:999px;min-width:28px;height:28px;display:grid;place-items:center;font-size:15px}
+.rkchip button{border:0;background:#fde2e2;color:#c62828;border-radius:999px;width:28px;height:28px;font-weight:900;cursor:pointer}
+.rkchip.done{border-color:#2e7d32}.rkchip.done i{background:#2e7d32}.rkchip.now{border-color:#e53935;box-shadow:0 0 0 3px #ffe14d}.rkchip b{color:#2e7d32}
+.rkprog{text-align:center;font-size:20px;background:#fff3b0;border:3px solid #e0a83a;border-radius:14px;padding:8px}
+.rkboard{width:min(620px,94vw);margin:8px auto;display:flex;flex-direction:column;gap:6px}
+.rkboard div{display:grid;grid-template-columns:5.5em 1fr auto;gap:10px;align-items:center;background:rgba(255,255,255,.92);color:#1d2b4f;border-radius:12px;padding:6px 14px;font-size:20px;text-align:left}
+.rkboard div.me{box-shadow:0 0 0 4px #ffe14d;background:#fff8d6}.rkboard span{font-weight:900}.rkboard em{font-style:normal;font-weight:900;font-size:24px;color:#c62828}
+#over .rkboard{max-height:34vh;overflow:auto}
+.podium{display:flex;align-items:flex-end;justify-content:center;gap:12px;margin:10px auto 6px;width:min(860px,96vw)}
+.pod{flex:1;max-width:250px;text-align:center;color:#fff}
+.pod .pm{font-size:52px;line-height:1}.pod .pn{font-size:clamp(17px,2.4vw,24px);font-weight:900}.pod .ps{font-size:clamp(34px,5.5vw,56px);font-weight:900;line-height:1.1}.pod .pst{font-size:16px}
+.pod .pb{margin-top:6px;border-radius:14px 14px 0 0;font-size:40px;font-weight:900;display:grid;place-items:center;color:rgba(0,0,0,.35)}
+.pod.p1 .pb{height:120px;background:linear-gradient(#ffe57f,#f5b301)}.pod.p2 .pb{height:84px;background:linear-gradient(#eceff1,#90a4ae)}.pod.p3 .pb{height:60px;background:linear-gradient(#ffccbc,#c77b4a)}
+.pod.p1 .pm{animation:pkpop .7s ease-out;font-size:66px}
+.rktop{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.rktop{grid-template-columns:1fr}}
+.rkright{background:#fff;border:3px solid #e2c98a;border-radius:16px;padding:10px;max-height:60vh;overflow:auto}
+.rkright h3 small{font-size:14px;color:#6b5a30;font-weight:700}
+.lbs{display:flex;flex-direction:column;gap:6px}
+.lbr{display:grid;grid-template-columns:2.6em minmax(0,1fr) auto auto;gap:8px;align-items:center;height:46px;padding:0 12px;border-radius:12px;background:#f7f2e4;color:#1d2b4f;font-size:18px;text-align:left;box-sizing:border-box}
+.lbr b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.lbr small{color:#e0a526;font-size:14px}.lbr em{font-style:normal;font-weight:900;font-size:22px;color:#c62828;min-width:3ch;text-align:right}
+.lbr .lbm{font-weight:900;text-align:center;font-size:18px}.lbr.top1 .lbm,.lbr.top2 .lbm,.lbr.top3 .lbm{font-size:26px}
+.lbr.top1{background:#fff3c4}.lbr.top2{background:#eef1f4}.lbr.top3{background:#fbe3d6}
+.lbr.me{background:#fff59d;box-shadow:0 0 0 4px #ffb300,0 6px 18px rgba(0,0,0,.35);z-index:2}
+.lbv{position:relative;overflow:auto;width:min(660px,94vw);margin:6px auto;border-radius:16px;background:rgba(10,16,40,.55);padding:0 8px;box-sizing:border-box;scrollbar-width:thin}
+.lbi{position:relative}.lbabs{position:absolute;left:0;right:0;top:3px}
+.lbr.pop{animation:lbpop .7s ease-out}.lbr.shake{animation:lbshake .5s}
+@keyframes lbpop{0%{filter:brightness(1)}30%{filter:brightness(1.4);scale:1.06}100%{filter:brightness(1);scale:1}}
+@keyframes lbshake{25%{margin-left:-8px}50%{margin-left:8px}75%{margin-left:-4px}}
+.lbmsg{font-size:clamp(20px,3vw,28px);font-weight:900;min-height:1.4em;opacity:0;transition:opacity .4s;color:#fff}.lbmsg.show{opacity:1}.lbmsg.good{color:#ffe14d;text-shadow:0 2px 0 #7a4b20}
+#over.pkmode #stars,#over.pkmode #ostat,#over.pkmode #oexp,#over.pkmode #ocoin{display:none!important}
+.pkme{font-size:clamp(18px,2.6vw,24px);font-weight:900;color:#ffe14d}.pkme b{color:#ff8a80}
+#pkbox .pkhint{margin:8px 0 0}.pkbtns2{margin-top:8px}.pkbtns2 button{margin:4px}
+.rkchip small{color:#6b5a30;font-weight:700;font-size:14px}
 </style>
 </head>
 <body>
@@ -1848,8 +1922,8 @@ function endHold(){const o=G.hd;G.hd=null;if(!o)return;o.res="hit";o.on=false;co
  else text(G.hx+90,y-30,"長音要吹滿喔","#ffd0d0",30)}
 function miss(o){o.res="miss";o.mt=NOW();G.combo=0;G.nm++;if(G.fever){G.fever=false;banner("FEVER 結束","#aab4ff")}G.hearts--;G.shake=G.flash=NOW();text(G.hx-30,ly(o.st)-40,"漏掉了","#ff8a8a",30);hud();if(G.hearts<=0)finish(false)}
 function finish(w){if(G.over)return;if(G.hd)endHold();G.over=true;const N=G.notes.length,acc=(G.np+G.ng*.85)/N,s=!w?0:acc>=.9?3:acc>=.7?2:acc>=.4?1:0,sc=Math.round(G.score);
- if(s>(STARS[G.name]||0)){STARS[G.name]=s;sv("rgStars",STARS)}
- let BEST={};try{BEST=JSON.parse(localStorage.getItem("rgBest")||"{}")}catch(e){}const nb=w&&sc>(BEST[G.name]||0);if(nb){BEST[G.name]=sc;sv("rgBest",BEST)}
+ if(!G.norew&&s>(STARS[G.name]||0)){STARS[G.name]=s;sv("rgStars",STARS)}
+ let BEST={};try{BEST=JSON.parse(localStorage.getItem("rgBest")||"{}")}catch(e){}const nb=!G.norew&&w&&sc>(BEST[G.name]||0);if(nb){BEST[G.name]=sc;sv("rgBest",BEST)}
  $("otxt").textContent=w?"🎉 守護成功！":"💥 城堡失守…";
  $("stars").innerHTML=[0,1,2].map(i=>`<span class="sb${i<s?" on":""}" style="animation-delay:${.25+i*.3}s">★</span>`).join("");
  $("ostat").innerHTML=(nb?`<div class="best">🏆 新紀錄！</div>`:"")+`<div class="sg"><div><b>${sc}</b>得分</div><div><b>${G.maxc}</b>最高連擊</div><div><b>${G.ltot?G.lok+" / "+G.ltot:"—"}</b>長音滿分</div><div><b style="color:#ffe14d">${G.np}</b>完美</div><div><b>${G.ng}</b>很好</div><div><b style="color:#ff9a9a">${G.nm+Math.max(0,N-G.hits-G.nm)}</b>漏掉</div></div>`;
@@ -2131,7 +2205,7 @@ function tDone(){const i=TM.t%TM.n,sc=Math.round(G.score);TM.sc[i]+=sc;delete ST
  let b=$("tnx");if(!b){b=document.createElement("button");b.id="tnx";b.className="big";$("over").appendChild(b)}b.hidden=false;b.textContent=last?"看最終排名":"下一隊："+tnm(TM.t%TM.n);b.onclick=last?tFinal:tTurn}
 function tFinal(){tBack();const m=Math.max(...TM.sc);DB.innerHTML=`<div class="tm"><h2>🏆 ${TM.sc.map((v,i)=>v===m?tnm(i):"").filter(Boolean).join("、")}</h2>${tbd()}<div class="opts"><button class="big" data-act="tsetup">再玩一場</button></div></div>`}
 const _fin=finish;finish=function(w){const f=G&&!G.over;_fin(w);certMark(f,w);
- if(f&&GDC()){const n=G.np*3+G.ng*2+(w?10:0);let t=0;try{t=+localStorage.getItem("rgCoins")||0}catch(e){}t+=n;try{localStorage.setItem("rgCoins",t)}catch(e){}$("otxt").textContent=w?"🎉 賺到金幣了！":"💨 金幣被搶走了…";let d=$("ocoin");if(!d){d=document.createElement("div");d.id="ocoin";$("over").appendChild(d)}d.textContent="💰 本次賺到 "+n+" 金幣・累計 "+t;d.hidden=false}else{const d=$("ocoin");d&&(d.hidden=true)}
+ if(f&&GDC()&&!G.norew){const n=G.np*3+G.ng*2+(w?10:0);let t=0;try{t=+localStorage.getItem("rgCoins")||0}catch(e){}t+=n;try{localStorage.setItem("rgCoins",t)}catch(e){}$("otxt").textContent=w?"🎉 賺到金幣了！":"💨 金幣被搶走了…";let d=$("ocoin");if(!d){d=document.createElement("div");d.id="ocoin";$("over").appendChild(d)}d.textContent="💰 本次賺到 "+n+" 金幣・累計 "+t;d.hidden=false}else{const d=$("ocoin");d&&(d.hidden=true)}
  if(f&&SPC())$("otxt").textContent=w?"🎉 星際守護成功！":"💥 太空站失守…";if(f&&TM&&G.name==="_seg")tDone()};
 const _tm=toMenu;toMenu=function(){TM=null;const b=$("tnx");b&&(b.hidden=true);$("again").hidden=$("tomenu").hidden=false;_tm();applyTheme()};
 DB.onclick=e=>{const b=e.target.closest("[data-lv],[data-act],[data-solo]");if(!b)return;if(b.dataset.solo!=null)return sStart(b.dataset.solo);if(b.dataset.lv!=null)return PK==="f"?fStart(+b.dataset.lv):rDraw(+b.dataset.lv);
@@ -2306,7 +2380,7 @@ let SG=Object.assign({n:0,last:""},LS.get("rgSign",{}));
 const coins=()=>{try{return +localStorage.getItem("rgCoins")||0}catch(e){return 0}};
 const addCoins=n=>{try{localStorage.setItem("rgCoins",Math.max(0,coins()+n))}catch(e){}};
 // ---- 班級 ----
-const PKEYS=["rgProf","rgStat","rgDaily","rgSide","rgSign","rgCoins","rgStars","rgBest","rgMQ","rgCards","rgMapPos"];
+const PKEYS=["rgProf","rgStat","rgDaily","rgSide","rgSign","rgCoins","rgStars","rgBest","rgMQ","rgCards","rgMapPos","rgPK"];
 let CLS=LS.get("rgClasses",null);if(!CLS||!Array.isArray(CLS.list)||!CLS.list.length){CLS={list:[{id:"c"+Date.now().toString(36),name:"我的班級"}]};CLS.cur=CLS.list[0].id;LS.set("rgClasses",CLS)}
 if(!CLS.list.some(c=>c.id===CLS.cur)){CLS.cur=CLS.list[0].id;LS.set("rgClasses",CLS)}
 const curC=()=>CLS.list.find(c=>c.id===CLS.cur);
@@ -2717,16 +2791,134 @@ const _os=openSheet;openSheet=function(id){if(id==="map"){mapFlash(()=>{const sh
 const _act=act;act=function(a){if(a==="map"||a==="rank")return openSheet(a);return _act(a)};
 window.__afterBuild=()=>{$("hubl").querySelector('[data-a="cls"]').insertAdjacentHTML("afterend",ib("rank","🏆","排行榜"));$("hubb").insertAdjacentHTML("afterbegin",ib("map","🗺️","冒險地圖"));
  const gb=M.querySelector(".gobtn");gb&&(gb.dataset.a="map",gb.textContent="🗺️ 出發冒險");const sh=$("sh-shop");sh&&(sh.querySelector(".sh span").textContent="🛒 商店");
- const _f3=finish;finish=function(w){const f=G&&!G.over&&G.name&&G.name[0]!=="_",r0=myRP(),c0=mainWalk().filter(x=>x.done).length;_f3(w);if(!f)return;
+ const _f3=finish;finish=function(w){const f=G&&!G.over&&!G.norew&&G.name&&G.name[0]!=="_",r0=myRP(),c0=mainWalk().filter(x=>x.done).length;_f3(w);if(!f)return;
   const r1=myRP(),c1=mainWalk().filter(x=>x.done).length,k0=rankOf(r0.rp),k1=rankOf(r1.rp);let d=$("oexp");if(!d)return;
   d.insertAdjacentHTML("beforeend",`<span>🏅 段位積分 ${r1.rp}${r1.rp>r0.rp?`（+${r1.rp-r0.rp}）`:""}</span>`+(c1>c0?`<span class="qn2">🏰 攻下城堡《${esc(G.name)}》！</span>`:"")+(k1.name!==k0.name&&r1.rp>r0.rp?`<span class="qn2">⬆ 升段：${k1.ic} ${k1.name}</span>`:""));
   if(c1>c0)setTimeout(()=>toast(`🏰 攻下城堡《${esc(G?G.name:"")}》！<br>回地圖繼續探索其他城堡`,true),400);
   if(k1.name!==k0.name&&r1.rp>r0.rp)setTimeout(()=>toast(`${k1.ic} 升段了！${k1.name}`,true),1300)}};
 
+// ---- ⚔️ 排位戰：每首曲子有自己的排行榜，同學隨時上場挑戰，保留每人最佳成績、名次即時更新 ----
+let PKC=Object.assign({n:30,ex:"",names:"",nore:true,used:[],hist:[],lb:{}},LS.get("rgPK",{}));if(!PKC.lb||typeof PKC.lb!=="object")PKC.lb={};
+let RK=null;// {song,list:[座號],i,phase:"setup"|"play"|"done",got:{座號:本次結果}}
+const pkSave=()=>LS.set("rgPK",PKC);
+const pkNames=()=>String(PKC.names||"").split(/\r?\n/).map(x=>x.trim());
+const pkNm=n=>pkNames()[n-1]||"";
+const pkWho=n=>`${n} 號${pkNm(n)?" "+esc(pkNm(n)):""}`;
+const pkMax=()=>Math.max(2,Math.min(99,+PKC.n||30));
+const pkEx=()=>new Set(String(PKC.ex||"").split(/[^0-9]+/).filter(Boolean).map(Number));
+const rkNew=()=>({song:"",list:[],i:0,phase:"setup",got:{}});
+function pkPool(){const ex=pkEx(),u=new Set(PKC.nore?PKC.used:[]),inn=new Set(RK?RK.list:[]),o=[];for(let i=1;i<=pkMax();i++)if(!ex.has(i)&&!u.has(i)&&!inn.has(i))o.push(i);return o}
+const pkPick=a=>a[Math.floor(Math.random()*a.length)];
+function pkBeep(f,d,v){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();ac.resume();tone(f,d||.06,v||.18)}catch(e){}}
+function pkSpin(el,final,ms){return new Promise(res=>{const all=[];for(let i=1;i<=pkMax();i++)all.push(i);let t=0,step=40;const go=()=>{t+=step;if(t>=ms){el.textContent=final;el.classList.remove("spin");el.classList.add("land");pkBeep(1046,.25);res();return}el.textContent=pkPick(all);pkBeep(520+Math.random()*200,.03);step=Math.min(240,step*1.1);setTimeout(go,step)};el.classList.remove("land");el.classList.add("spin");go()})}
+const rkMedal=i=>["🥇","🥈","🥉"][i]||`${i+1}`;
+// 排行榜：每首曲子 × 每位同學只留最佳成績
+const lbList=song=>Object.entries(PKC.lb[song]||{}).map(([n,v])=>({n:+n,...v})).sort((a,b)=>b.sc-a.sc||b.acc-a.acc||a.t-b.t);
+function lbPost(song,n,r){const old=lbList(song),oi=old.findIndex(x=>x.n===n),L=PKC.lb[song]||(PKC.lb[song]={}),prev=L[n]?{...L[n]}:null;
+ const up=!prev||r.sc>prev.sc||(r.sc===prev.sc&&r.acc>prev.acc);if(up)L[n]={sc:r.sc,acc:r.acc,s:r.s,t:Date.now()};pkSave();
+ const neu=lbList(song);return{old,oi,neu,ni:neu.findIndex(x=>x.n===n),up,prev}}
+const lbRow=(x,i,me)=>`<div class="lbr${me?" me":""}${i<3?" top"+(i+1):""}"><span class="lbm">${rkMedal(i)}</span><b>${pkWho(x.n)}</b><small>${"★".repeat(x.s||0)}${"☆".repeat(3-(x.s||0))}</small><em>${x.sc}</em></div>`;
+function lbStatic(song,hl){const L=lbList(song);if(!L.length)return`<p class="sub" style="text-align:center;margin:6px 0">這首曲子還沒有人上榜，快來當第一位！</p>`;return`<div class="lbs">${L.map((x,i)=>lbRow(x,i,x.n===hl)).join("")}</div>`}
+// 名次動畫：自己的那一列從舊名次滑到新名次，其他人跟著讓位
+function lbAnim(box,R,n,score){const H=52,rows=R.neu,len=rows.length,showN=Math.min(len,7);
+ const startIdx=x=>x.n===n?(R.oi>=0?R.oi:R.old.length):R.old.findIndex(o=>o.n===x.n);
+ box.innerHTML=`<div class="lbv" style="height:${showN*H}px"><div class="lbi" style="height:${Math.max(len,R.old.length+(R.oi<0?1:0))*H}px">${rows.map((x,i)=>`<div class="lbr lbabs${x.n===n?" me":""}${i<3?" top"+(i+1):""}" data-n="${x.n}" style="transform:translateY(${startIdx(x)*H}px)"><span class="lbm">${rkMedal(x.n===n?(R.oi>=0?R.oi:R.old.length):R.old.findIndex(o=>o.n===x.n))}</span><b>${pkWho(x.n)}</b><small>${"★".repeat(x.s||0)}${"☆".repeat(3-(x.s||0))}</small><em>${x.n===n&&R.prev&&R.up?R.prev.sc:x.sc}</em></div>`).join("")}</div></div><div class="lbmsg"></div>`;
+ const v=box.querySelector(".lbv"),me=box.querySelector(`.lbr[data-n="${n}"]`),msg=box.querySelector(".lbmsg");
+ const y0=startIdx({n})*H,y1=R.ni*H,center=y=>{v.scrollTop=Math.max(0,y-(showN*H-H)/2)};center(y0);
+ const fin=()=>{box.querySelectorAll(".lbr").forEach(r=>{const i=rows.findIndex(x=>x.n===+r.dataset.n);r.querySelector(".lbm").textContent=rkMedal(i);r.className="lbr lbabs"+(+r.dataset.n===n?" me":"")+(i<3?" top"+(i+1):"")});
+  const rise=R.oi<0?null:R.oi-R.ni;let t;
+  if(!R.up)t=`這次 ${score} 分，沒有超過自己的最佳 ${R.prev.sc} 分，目前排第 ${R.ni+1} 名，加油！`;
+  else if(R.ni===0)t=R.oi===0?`👑 衛冕成功！刷新自己的紀錄，繼續穩坐第 1 名！`:`👑 登上第 1 名！${rise?"上升 "+rise+" 名！":"新進榜就拿第一！"}`;
+  else if(R.oi<0)t=`🎉 新進榜！排第 ${R.ni+1} 名`;else if(rise>0)t=`⬆ 上升 ${rise} 名！現在第 ${R.ni+1} 名`;else t=`✨ 刷新自己的紀錄！維持第 ${R.ni+1} 名`;
+  msg.textContent=t;msg.className="lbmsg show"+(R.up?" good":"");if(R.up){me.classList.add("pop");setTimeout(()=>{try{chime()}catch(e){}},120)}else me.classList.add("shake")};
+ if(!R.up||y0===y1){setTimeout(fin,500);return}
+ setTimeout(()=>{rows.forEach((x,i)=>{if(x.n===n)return;const r=box.querySelector(`.lbr[data-n="${x.n}"]`);r.style.transition="transform .6s ease";r.style.transform=`translateY(${i*H}px)`});
+  const D=Math.min(2600,700+Math.abs(y0-y1)*12),t0=performance.now(),em=me.querySelector("em"),s0=R.prev?R.prev.sc:0;let last=Math.round(y0/H);
+  const step=now=>{const k=Math.min(1,(now-t0)/D),e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2,y=y0+(y1-y0)*e;me.style.transform=`translateY(${y}px)`;center(y);em.textContent=Math.round(s0+(score-s0)*e);
+   const cur=Math.round(y/H);if(cur!==last){last=cur;pkBeep(523*Math.pow(2,(len-cur)/12),.07,.14)}if(k<1)requestAnimationFrame(step);else{em.textContent=score;fin()}};requestAnimationFrame(step)},450)}
+let pkBusy=false;
+async function rkDraw(cnt){if(pkBusy)return;let pool=pkPool();
+ if(!pool.length&&PKC.nore&&PKC.used.length){PKC.used=[];pkSave();toast("全部號碼都抽過了，重新開始抽！");pool=pkPool()}
+ if(!pool.length){rkMsg("沒有可以抽的號碼了，請檢查座號範圍和不抽的號碼。");return}
+ pkBusy=true;$("sh-pk").querySelectorAll("[data-rk]").forEach(x=>x.disabled=true);
+ for(let k=0;k<cnt;k++){pool=pkPool();if(!pool.length)break;const n=pkPick(pool);await pkSpin($("rkreel"),n,k?1000:1500);$("rkname").textContent=pkNm(n);RK.list.push(n);rkChips();await new Promise(r=>setTimeout(r,350))}
+ pkBusy=false;renderPK()}
+function rkAdd(v){const nums=String(v||"").split(/[^0-9]+/).filter(Boolean).map(Number);if(!nums.length){rkMsg("請輸入座號，例如：7 或 3, 15, 22");return}
+ const bad=[],dup=[];nums.forEach(n=>{if(n<1||n>pkMax())bad.push(n);else if(RK.list.includes(n))dup.push(n);else RK.list.push(n)});
+ renderPK();rkMsg(bad.length?`座號 ${bad.join("、")} 超出範圍（1～${pkMax()}）`:dup.length?`${dup.join("、")} 號已經在名單裡了`:"")}
+function rkMsg(t){const m=$("pkmsg");m&&(m.textContent=t||"")}
+function rkChips(){const c=$("rkchips");if(!c)return;const L=lbList(RK.song);
+ c.innerHTML=RK.list.length?RK.list.map((n,i)=>{const g=RK.got[n],ri=L.findIndex(x=>x.n===n);return`<span class="rkchip${g?" done":RK.phase==="play"&&i===RK.i?" now":""}"><i>${i+1}</i>${pkWho(n)}${g?` <b>${g.sc} 分</b>`:ri>=0?` <small>目前第 ${ri+1} 名</small>`:""}${RK.phase==="setup"?`<button data-rkrm="${n}" aria-label="移除 ${n} 號">✕</button>`:""}</span>`}).join(""):`<p class="sub" style="margin:4px 0">還沒有人加入。按「隨機抽」或輸入座號，選好就能上場挑戰排名。</p>`;
+ const g=$("rkstart");g&&(g.textContent=`▶ 開始挑戰（${RK.list.length} 人）`,g.disabled=!RK.list.length)}
+async function pkGo(){if(!RK||!SONGS[RK.song]){toast("請先選一首曲子");return}
+ if(!micOn){rkMsg("🎤 正在開啟麥克風…");try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();ac.resume()}catch(e){}await initMic();
+  if(!micOn){const m=$("pkmsg");m&&(m.innerHTML="⚠️ 麥克風沒有開啟，所以還不能開始。<br>"+esc($("micmsg").textContent||"請允許使用麥克風後再按一次。"));return}rkMsg("")}
+ if(RK.phase==="setup"){RK.phase="play";RK.i=0;RK.got={};if(PKC.nore){RK.list.forEach(n=>{if(!PKC.used.includes(n))PKC.used.push(n)});pkSave()}}
+ const n=RK.list[RK.i];[...M.querySelectorAll(".sheet")].forEach(s=>s.hidden=true);
+ toast(`${RK.list.length>1?`第 ${RK.i+1} 位：`:""}${pkWho(n)} 上場！`,true);
+ try{await start(RK.song)}catch(err){$("micmsg").textContent="無法開始遊戲："+(err&&err.message||err)}
+ if($("play").hidden){openSheet("pk");rkMsg("⚠️ 沒有成功開始，請再按一次。")}}
+function pkBox(){let d=$("pkbox");if(!d){d=document.createElement("div");d.id="pkbox";$("over").appendChild(d)}d.hidden=false;return d}
+function pkDone(w){const N=G.notes.length,acc=(G.np+G.ng*.85)/N,s=!w?0:acc>=.9?3:acc>=.7?2:acc>=.4?1:0,n=RK.list[RK.i],r={sc:Math.round(G.score),acc,s};RK.got[n]=r;
+ const R=lbPost(RK.song,n,r);$("again").hidden=$("tomenu").hidden=true;$("over").classList.add("pkmode");const d=pkBox();RK.i++;const more=RK.i<RK.list.length;if(!more)RK.phase="done";
+ $("otxt").textContent=`${pkNm(n)||n+" 號"}：${r.sc} 分`;
+ d.innerHTML=`<div class="pkme">${"★".repeat(s)}${"☆".repeat(3-s)}　準確 ${Math.round(acc*100)}%${R.up&&R.prev?`　<b>🔥 個人新紀錄！</b>`:""}</div><h3 class="pkhint">🏆《${esc(RK.song)}》排行榜</h3><div id="lbanim"></div>
+  <div class="pkbtns2">${more?`<button class="big" data-pkx="next">▶ 下一位：${pkWho(RK.list[RK.i])}</button> `:`<button class="big" data-pkx="again">⚔️ 再挑戰一輪</button> `}<button data-pkx="redo">🔁 ${n} 號再挑戰一次</button> <button data-pkx="quit">${more?"結束":"回大廳"}</button></div>`;
+ lbAnim($("lbanim"),R,n,r.sc)}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-pkx]");if(!b)return;const k=b.dataset.pkx;
+ if(k==="next"||k==="redo"){if(k==="redo"){RK.i--;RK.phase="play"}$("pkbox").hidden=true;$("over").classList.remove("pkmode");$("over").hidden=true;pkGo();return}
+ const back=()=>{$("pkbox").hidden=true;toMenu()};
+ if(k==="again"){const song=RK.song;RK=rkNew();RK.song=song;back();setTimeout(()=>openSheet("pk"),50);return}
+ if(k==="quit"){const song=RK&&RK.song;RK=rkNew();RK.song=song||"";back();return}});
+const _tmPK=toMenu;toMenu=function(){const b=$("pkbox");b&&(b.hidden=true);$("over").classList.remove("pkmode","pkfin");_tmPK()};
+// 排位戰、小隊輪流＝比賽模式：不給 EXP／金幣／星星，不算段位積分與任務進度
+const _stNR=start;start=async function(n){const r=await _stNR.apply(this,arguments);if(G&&G.name===n&&((typeof TM!=="undefined"&&TM&&n==="_seg")||(RK&&RK.phase==="play"&&n===RK.song)))G.norew=true;return r};
+const _finPK=finish;finish=function(w){const f=G&&!G.over&&RK&&RK.phase==="play"&&G.name===RK.song&&RK.i<RK.list.length;_finPK(w);if(f)pkDone(w)};
+function renderPK(){const sh=mkSheet("pk","⚔️ 排位戰"),c=sh.querySelector(".sc");if(!RK)RK=rkNew();if(RK.phase==="done"){const s=RK.song;RK=rkNew();RK.song=s}const play=RK.phase==="play",prev=$("pksong")?$("pksong").value:"";
+ c.innerHTML=`<p class="sub" style="text-align:center">每首曲子都有自己的排行榜，保留每位同學的最佳成績。隨時上場挑戰，刷新紀錄就能往上爬！</p>
+ <div class="rktop"><div class="rkleft">
+ ${play?`<div class="rkprog"><b>⚔️ 挑戰進行中</b>　已完成 ${Object.keys(RK.got).length} / ${RK.list.length} 人</div>`
+ :`<div class="rkdraw"><div class="rkreel"><small>🎰 抽號機</small><b id="rkreel">?</b><span id="rkname"></span></div>
+  <div class="rkctl"><div><button class="qa claim big2" data-rk="draw">🎰 隨機抽</button><select id="rkcnt" aria-label="一次抽幾位">${[1,2,3,4,5,6].map(x=>`<option value="${x}">${x} 位</option>`).join("")}</select></div>
+   <div><input id="rknum" inputmode="numeric" placeholder="指定座號，例如 7 或 3,15" aria-label="指定座號"><button class="qa" data-rk="add">➕ 加入</button></div></div></div>`}
+ <h3 style="margin:10px 0 6px">👥 上場順序${play?"":"（可按 ✕ 移除）"}</h3><div id="rkchips" class="rkchips"></div>
+ <div class="pksong"><label>🎵 排位曲目 <select id="pksong" aria-label="排位曲目"${play?" disabled":""}>${songOpts()}</select></label>${play?"":`<button class="qa" data-rk="rs">🎲 隨機抽曲目</button><select id="pkfold" aria-label="從哪個資料夾抽曲目"><option value="">從全部曲目抽</option>${allFolders().filter(p=>songsIn(p).length).map(p=>`<option>${esc(p)}</option>`).join("")}</select>`}</div>
+ <p id="pkmsg" class="pkmsg" role="status"></p>
+ <div class="pkbtns">${play?`<button class="qa claim big2" data-rk="go">▶ 繼續：${pkWho(RK.list[RK.i])} 上場</button><button class="qa" data-rk="cancel">結束這輪</button>`
+  :`<button class="qa claim big2" id="rkstart" data-rk="go">▶ 開始挑戰</button><button class="qa" data-rk="shuf">🔀 打亂順序</button><button class="qa" data-rk="clear">🗑 清空名單</button>`}</div>
+ </div><div class="rkright"><h3 style="margin:0 0 6px" id="lbtitle"></h3><div id="lbside"></div></div></div>
+ ${play?"":`<details class="pkset"><summary>⚙ 抽號設定（目前可抽 ${pkPool().length} 個號碼）</summary>
+  <label>座號從 1 到 <input type="number" id="pkn" min="2" max="99" value="${pkMax()}" style="width:70px"> 號</label>
+  <label>不抽的號碼（請假、轉出）<input id="pkex" value="${esc(PKC.ex||"")}" placeholder="例如：5, 12, 23" style="width:200px"></label>
+  <label><input type="checkbox" id="pknore"${PKC.nore?" checked":""}> 抽過的號碼不再抽（已抽 ${PKC.used.length} 位）</label> <button class="qa" data-rk="reset">↺ 全部重新開始</button>
+  <label style="display:block;margin-top:8px">學生名單（選填，一行一位，第 1 行＝1 號）<textarea id="pknames" rows="5" placeholder="王小明&#10;李小華&#10;…">${esc(PKC.names||"")}</textarea></label>
+  <small>名單和排行榜只存在這台平板，不會上傳。隨機抽號才會跳過「不抽的號碼」；指定號碼一定會加入。</small>
+  <p style="margin:8px 0 0"><button class="qa" data-rk="lbclr">🧹 清除這首曲子的排行榜</button></p></details>`}`;
+ const sel=$("pksong"),want=RK.song||prev||sel.value;sel.value=want;if(sel.value!==want&&sel.options.length)sel.selectedIndex=0;RK.song=sel.value;
+ const side=()=>{$("lbtitle").innerHTML=`🏆《${esc(RK.song)}》排行榜 <small>${lbList(RK.song).length} 人上榜</small>`;$("lbside").innerHTML=lbStatic(RK.song);rkChips()};side();
+ sel.onchange=()=>{RK.song=sel.value;side()};
+ if(!play){const upd=()=>{PKC.n=Math.max(2,Math.min(99,+$("pkn").value||30));PKC.ex=$("pkex").value;PKC.nore=$("pknore").checked;PKC.names=$("pknames").value;pkSave()};
+  ["pkn","pkex","pknore","pknames"].forEach(id=>{$(id).onchange=()=>{upd();renderPK()}});
+  $("rknum").onkeydown=e=>{if(e.key==="Enter"){rkAdd($("rknum").value)}}}
+ c.onclick=e=>{const rm=e.target.closest("[data-rkrm]");if(rm){RK.list=RK.list.filter(n=>n!==+rm.dataset.rkrm);renderPK();return}
+  const b=e.target.closest("[data-rk]");if(!b||b.disabled)return;const k=b.dataset.rk;
+  if(k==="draw"){rkMsg("");rkDraw(+$("rkcnt").value||1);return}
+  if(k==="add"){rkAdd($("rknum").value);return}
+  if(k==="go"){if(!play&&!RK.list.length){rkMsg("請先抽號或輸入座號，選出要上場的同學");return}pkGo();return}
+  if(k==="shuf"){for(let i=RK.list.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[RK.list[i],RK.list[j]]=[RK.list[j],RK.list[i]]}renderPK();return}
+  if(k==="clear"){RK.list=[];renderPK();return}
+  if(k==="cancel"){const s=RK.song;RK=rkNew();RK.song=s;renderPK();return}
+  if(k==="reset"){if(confirm("把「已抽過」的紀錄清空，所有號碼重新開始抽？")){PKC.used=[];pkSave();renderPK()}return}
+  if(k==="lbclr"){if(confirm(`清除《${RK.song}》的排行榜？所有同學在這首曲子的排名紀錄都會刪除。`)){delete PKC.lb[RK.song];pkSave();renderPK()}return}
+  if(k==="rs"){const f=$("pkfold").value,L=(f?songsIn(f):[...sel.options].map(o=>o.value)).filter(k=>SONGS[k]);if(!L.length)return;const pick=pkPick(L);sel.value=pick;RK.song=pick;side();sel.classList.remove("flash");void sel.offsetWidth;sel.classList.add("flash");pkBeep(880,.15);toast("🎵 抽到《"+esc(pick)+"》")}}}
+const _osPK=openSheet;openSheet=function(id){if(id==="pk"){mkSheet("pk","⚔️ 排位戰");renderPK()}_osPK(id)};
+const _actPK=act;act=function(a){if(a==="pk")return openSheet("pk");return _actPK(a)};
+const _abPK=window.__afterBuild;window.__afterBuild=()=>{_abPK&&_abPK();const hb=$("hubb"),t=hb&&hb.querySelector('[data-a="t"]');if(hb&&!hb.querySelector('[data-a="pk"]')){const h=ib("pk","⚔️","排位戰");t?t.insertAdjacentHTML("afterend",h):hb.insertAdjacentHTML("beforeend",h)}};
+
 window.hubRefresh=hubRefresh;
 // ---- 掛到遊戲上 ----
 const _hit=hit;hit=function(o,dt,b){const f0=G&&G.fever;(G.sh=G.sh||[]).push({t0:performance.now(),x:G.hx,y:ly(o.st),col:CL[o.c]});_hit(o,dt,b);if(G&&!f0&&G.fever)G.fvc=(G.fvc||0)+1};
-const _fin2=finish;finish=function(w){const f=G&&!G.over&&G.name&&G.name[0]!=="_";_fin2(w);if(!f)return;
+const _fin2=finish;finish=function(w){const f=G&&!G.over&&!G.norew&&G.name&&G.name[0]!=="_";_fin2(w);if(!f)return;
  const before={...DY.p},N=G.notes.length,acc=(G.np+G.ng*.85)/N,s=!w?0:acc>=.9?3:acc>=.7?2:acc>=.4?1:0;
  bump("plays");if(w)bump("wins");bump("perfect",G.np);bump("lok",G.lok||0);bump("fever",G.fvc||0);if(s>=2)bump("star2");maxSet("maxc",G.maxc||0);
  if(!ST.songs.includes(G.name)){ST.songs.push(G.name);LS.set("rgStat",ST)}
@@ -2737,7 +2929,7 @@ const _fin2=finish;finish=function(w){const f=G&&!G.over&&G.name&&G.name[0]!=="_
 try{const _f=fEnd;fEnd=function(){const r=_f.apply(this,arguments);bump("fd");bump("drill");gain(15,0);return r}}catch(e){}
 try{const _s=sEnd;sEnd=function(){const r=_s.apply(this,arguments);bump("fd");bump("drill");gain(10,0);return r}}catch(e){}
 try{const _r=rEnd;rEnd=function(){const r=_r.apply(this,arguments);bump("rd");bump("drill");gain(15,0);return r}}catch(e){}
-try{const _t=tFinal;tFinal=function(){const r=_t.apply(this,arguments);bump("team");gain(20,0);return r}}catch(e){}
+try{const _t=tFinal;tFinal=function(){const r=_t.apply(this,arguments);bump("team");return r}}catch(e){}
 const _menu=menu;menu=function(){_menu.apply(this,arguments);hubRefresh()};
 try{$("fpos").hidden=true}catch(e){}
 function fgSet(on){$("fpos").value=on?"b":"p";try{localStorage.setItem("rgFgOn",on?"1":"0")}catch(e){}const s=$("fgon");s&&(s.value=on?"1":"0");const b=$("fgbtn");b&&(b.textContent=on?"🖐 指法：開":"🖐 指法：關")}
@@ -2832,7 +3024,7 @@ window.rgSync={pull,push,meta:()=>M0};
 @keyframes sybn{50%{transform:translateX(-50%) scale(1.05)}}
 </style>
 
-<div id="rgver" aria-label="遊戲版本">版本 2026.11.09b</div>
+<div id="rgver" aria-label="遊戲版本">版本 2026.11.10e</div>
 <style>#rgver{position:fixed;left:8px;bottom:6px;z-index:2;font:700 12px/1.2 sans-serif;color:rgba(255,255,255,.75);text-shadow:0 1px 2px #000;pointer-events:none}</style>
 </body>
 </html>
