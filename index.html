@@ -2621,7 +2621,13 @@ if(JSON.stringify(QCALL)!==c0)LS.set("rgQuestCfg",QCALL)}
 // 年級任務：班級可手動指定年級（g），否則從班級名稱判斷（例如「四年一班」→ 4）
 const GRS=[3,4,5,6],grName=g=>GN[g-1]+"年級";
 const clsGrade=k=>k?(+k.g||gradeOf(k.name)||0):0;
-const cfgFor=g=>{const x=g&&QCALL.g[g];return x&&Array.isArray(x.main)?{main:x.main,side:Array.isArray(x.side)?x.side:[]}:{main:QCALL.main,side:QCALL.side}};
+const cfgFor0=g=>{const x=g&&QCALL.g[g];return x&&Array.isArray(x.main)?{main:x.main,side:Array.isArray(x.side)?x.side:[]}:{main:QCALL.main,side:QCALL.side}};
+// 所有曲目自動成為地圖城堡：完整曲＝主線大城堡，分段練習＝支線小城堡（老師設定的星數優先）
+function sgBase(k){return String(k).replace(/\s*[\(（][^)）]*[\)）]\s*/g,"").trim()}
+function sgGroup(k){return sgBase(k).replace(/[・·].*$/,"").replace(/第[一二三四五六七八九十\d]+[關行段]$/,"").replace(/(\d+|全)$/,"").trim()||k}
+function cfgFor(g){const c=cfgFor0(g),has=new Set([...c.main,...c.side].map(q=>q.k)),ks=Object.keys(SONGS).filter(k=>k[0]!=="_"),am=[],as=[];
+ ks.forEach(k=>{if(has.has(k))return;const gr=sgGroup(k),b=sgBase(k),same=ks.filter(x=>sgGroup(x)===gr),full=/全$/.test(b)||(b===gr&&same.filter(x=>sgBase(x)===b).length===1);(full?am:as).push({k,s:2,auto:1})});
+ return{main:c.main.concat(am),side:c.side.concat(as)}}
 let GRADE=clsGrade(CLS.list.find(c=>c.id===CLS.cur)),QC=cfgFor(GRADE);
 const ownG=()=>!!(GRADE&&QCALL.g[GRADE]);
 function qcApply(){GRADE=clsGrade(CLS.list.find(c=>c.id===CLS.cur));QC=cfgFor(GRADE)}
@@ -2789,7 +2795,7 @@ function castleSVG(sp,st,i){const x=sp.x,y=sp.y;let body,top;
  else{const D=MAPIMG[sp.d],mw=sp.big?320:215,mh=sp.big?290:200,w=Math.min(mw,mh*D.w/D.h),h=w*D.h/D.w;top=y+90-h;body=`<g transform="translate(${x} ${y+90})${sp.flip?" scale(-1 1)":""}"><image href="${D.u}" x="${-w/2}" y="${-h}" width="${w}" height="${h}"/></g>`}
  return `<g class="mc ${st}" data-ci="${i}" tabindex="0" role="button" aria-label="第 ${i+1} 座城堡"><g>${st==="done"?`<ellipse cx="${x}" cy="${y+20}" rx="200" ry="150" fill="url(#mpglow)"/>`:""}${body}${st==="done"?`<g transform="translate(${x} ${top-10})"><path d="M0 -70V-10" stroke="#4a3a2a" stroke-width="5"/><path d="M0 -70L56 -54L0 -38Z" fill="#ef4444" stroke="#4a3a2a" stroke-width="3"/><text x="0" y="-18" text-anchor="middle" font-size="40">🏆</text></g>`:""}</g></g>`}
 const HKEY="rgMapPos";
-function renderMap(){const sh=mkSheet("map","🗺️ 冒險地圖");sh.classList.add("mpfull");const c=sh.querySelector(".sc"),W=mapItems(),n=W.length;MITEMS=W;
+function renderMap(){qcApply();const sh=mkSheet("map","🗺️ 冒險地圖");sh.classList.add("mpfull");const c=sh.querySelector(".sc"),W=mapItems(),n=W.length;MITEMS=W;
  if(!n){c.innerHTML=`<div class="mpempty"><p style="font-size:22px;font-weight:900">地圖上的城堡就是「主線任務」的曲子。老師還沒設定，請按下方按鈕挑選曲子。</p><p><button class="qa claim" data-mset="1" style="font-size:20px">⚙ 設定城堡曲目</button> <button class="qa" data-mback="1" style="font-size:20px">⬅ 回大廳</button></p></div>`;c.onclick=mapClick;return}
  const L=mapLayout(W);MLAY=L;const SP=L.S,P=SP.map(s=>[s.x,s.y]),VW=(L.tiles-1)*TSTEP+TILE_W,VH=TILE_H;
  // 相鄰兩張地圖重疊一段並淡入，接縫看不出來
@@ -3264,7 +3270,7 @@ window.rgSync={pull,push,meta:()=>M0};
 @keyframes sybn{50%{transform:translateX(-50%) scale(1.05)}}
 </style>
 
-<div id="rgver" aria-label="遊戲版本">版本 2026.11.11l</div>
+<div id="rgver" aria-label="遊戲版本">版本 2026.11.11m</div>
 <style>#rgver{position:fixed;left:8px;bottom:6px;z-index:2;font:700 12px/1.2 sans-serif;color:rgba(255,255,255,.75);text-shadow:0 1px 2px #000;pointer-events:none}</style>
 </body>
 </html>
