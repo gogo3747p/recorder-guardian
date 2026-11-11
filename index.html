@@ -1713,6 +1713,8 @@ button.rs{cursor:pointer}.rs.on{border-color:#4ade80}
 .syqr{background:#fff;border:3px solid #3d86d6;border-radius:16px;padding:12px 16px;margin:10px 0;text-align:center}
 .syqr p{font-size:16px;margin:6px 0}.syqrimg{display:inline-block;background:#fff;padding:10px;border-radius:12px}.syqrimg svg{width:min(240px,60vw);height:auto;display:block}
 .syqr textarea{width:100%;font-size:13px;border-radius:8px;border:2px solid #e2c98a;word-break:break-all}.sywarn{color:#c62828;font-weight:900}
+#hqt{display:none!important}
+#accsel{font-size:inherit}
 </style>
 </head>
 <body>
@@ -1723,7 +1725,7 @@ button.rs{cursor:pointer}.rs.on{border-color:#4ade80}
     <button id="micbtn">🎤 開啟麥克風</button><span class="pill" id="micst">未開啟</span><span class="pill" id="mtest" style="font-weight:500;flex-basis:100%;max-width:420px;font-variant-numeric:tabular-nums;min-height:42px;white-space:nowrap;overflow:hidden">🎤 開啟麥克風後，這裡會顯示偵測到的音</span><small id="micmsg" role="alert" style="flex-basis:100%;color:#c0392b;font-weight:700"></small>
     <select id="metro" aria-label="節拍器"><option value="4">節拍器：4 拍</option><option value="3">節拍器：3 拍</option><option value="0">節拍器：關</option></select>
     
-    <select id="speed" aria-label="速度"><option value=".6">慢速</option><option value=".7">中慢速</option><option value=".8" selected>中速</option><option value=".9">中快速</option><option value="1">原速</option></select>
+    <select id="speed" aria-label="速度"><option value=".6">慢速 ♩=48</option><option value=".75">中慢速 ♩=60</option><option value=".9" selected>中速 ♩=72</option><option value="1.05">中快速 ♩=84</option><option value="1.2">快速 ♩=96</option></select>
     <select id="sens" aria-label="靈敏度"><option value="lo">靈敏度：低（嚴格）</option><option value="mid">靈敏度：中</option><option value="hi" selected>靈敏度：高</option></select>
     <select id="fingsel" aria-label="指法"><option value="b">英式（巴洛克）指法</option><option value="g">德式指法</option></select><select id="fpos" aria-label="指法位置"><option value="b">指法：面板＋怪獸</option><option value="p">指法：左邊面板</option><option value="m">指法：怪獸身上</option></select><select id="theme" aria-label="主題"><option value="c">主題：城堡</option><option value="s">主題：星際</option><option value="g">主題：賺金幣</option></select>
     <select id="label" aria-label="音符標示"><option value="s">唱名</option><option value="n">數字</option><option value="l">音名</option></select>
@@ -1770,6 +1772,7 @@ const SONGS={"夕陽中的銀髮":"3’. 4’/ 3’/ 5/ 4/ 2’/ | 1’- 3- | 5.
 "祈禱4":"E4 E4/ G4/ G4 G4/ E4/ | E4-",
 "祈禱全":"D4 E4/ G4/ A4 A4/ B4/ | A4- G4 E4 | E4/ E4/ G4/ A4/ B4 B4/ A4/ | A4-- 0 | D4 E4/ G4/ A4 A4/ D5/ | B4- A4 G4 | E4 E4/ G4/ G4 G4/ E4/ | E4",
 "Mi/Re練習1":"E4 E4 D4 G4 | E4 E4 D4- | E4 E4 D4 D4 | G4- E4",
+"噢!蘇珊娜":"0- 0 C4/ D4/ | E4 G4 G4. A4/ | G4 E4 C4. D4/ | E4 E4 D4 C4 | D4- 0 C4/ D4/ | E4 G4 G4. A4/ | G4 E4 C4. D4/ | E4 E4 D4 D4 | C4-. 0 | F4- F4- | A4 A4- A4 | G4 G4 E4 C4 | D4- 0 C4/ D4/ | E4 G4 G4. A4/ | G4 E4 C4. D4/ | E4 E4 D4 D4 | C4-. 0",
 "Mi/Re練習2":"G4 G4 G4 D4 | E4 E4 D4- | B4 B4 A4 A4 | G4-",
 "C大調音階(4拍)":"C4--- | D4--- | E4--- | F4--- | G4--- | A4--- | B4--- | C5--- | C5--- | B4--- | A4--- | G4--- | F4--- | E4--- | D4--- | C4---",
 "C大調音階(1拍)":"C4 D4 E4 F4 | G4 A4 B4 C5 | C5 B4 A4 G4 | F4 E4 D4 C4",
@@ -1786,7 +1789,7 @@ let U={},STARS={},G=null,ac=null,an=null,buf=null,micOn=false,LV=0,MS=null,FM=0;
 try{U=JSON.parse(localStorage.getItem("rgUser")||"{}");STARS=JSON.parse(localStorage.getItem("rgStars")||"{}")}catch(e){}
 const BI=Object.assign({},SONGS);Object.assign(SONGS,U);
 const sv=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
-const SGRADE={"夕陽中的銀髮":"六年級","夕陽中的銀髮・第一行":"六年級","夕陽中的銀髮・第二行":"六年級","夕陽中的銀髮・第三行":"六年級","夕陽中的銀髮・第四行":"六年級","小白花第一關 (Edelweiss)":"五年級 › 五上小白花","小白花第二關 (Edelweiss)":"五年級 › 五上小白花","小白花第三關 (Edelweiss)":"五年級 › 五上小白花","小白花第四關 (Edelweiss)":"五年級 › 五上小白花","小白花 (Edelweiss)":"五年級 › 五上小白花","永遠同在第一關":"五年級 › 五上永遠同在","永遠同在第二關":"五年級 › 五上永遠同在","永遠同在第三關":"五年級 › 五上永遠同在","永遠同在第四關":"五年級 › 五上永遠同在","永遠同在":"五年級 › 五上永遠同在","祈禱1":"四年級 › 四上祈禱","祈禱2":"四年級 › 四上祈禱","祈禱3":"四年級 › 四上祈禱","祈禱4":"四年級 › 四上祈禱","祈禱全":"四年級 › 四上祈禱","Mi/Re練習1":"四年級 › 基本練習","Mi/Re練習2":"四年級 › 基本練習","C大調音階(4拍)":"音階","C大調音階(1拍)":"音階","C大調音階(半拍)":"音階"},SGR=["三年級","四年級","五年級","六年級"];
+const SGRADE={"夕陽中的銀髮":"六年級","夕陽中的銀髮・第一行":"六年級","夕陽中的銀髮・第二行":"六年級","夕陽中的銀髮・第三行":"六年級","夕陽中的銀髮・第四行":"六年級","小白花第一關 (Edelweiss)":"五年級 › 五上小白花","小白花第二關 (Edelweiss)":"五年級 › 五上小白花","小白花第三關 (Edelweiss)":"五年級 › 五上小白花","小白花第四關 (Edelweiss)":"五年級 › 五上小白花","小白花 (Edelweiss)":"五年級 › 五上小白花","永遠同在第一關":"五年級 › 五上永遠同在","永遠同在第二關":"五年級 › 五上永遠同在","永遠同在第三關":"五年級 › 五上永遠同在","永遠同在第四關":"五年級 › 五上永遠同在","永遠同在":"五年級 › 五上永遠同在","祈禱1":"四年級 › 四上祈禱","祈禱2":"四年級 › 四上祈禱","祈禱3":"四年級 › 四上祈禱","祈禱4":"四年級 › 四上祈禱","祈禱全":"四年級 › 四上祈禱","Mi/Re練習1":"四年級 › 基本練習","噢!蘇珊娜":"四年級 › 噢!蘇珊娜","Mi/Re練習2":"四年級 › 基本練習","C大調音階(4拍)":"音階","C大調音階(1拍)":"音階","C大調音階(半拍)":"音階"},SGR=["三年級","四年級","五年級","六年級"];
 let FOLD={},FOLDERS=[],ORD={},FCOL=[];try{FOLD=JSON.parse(localStorage.getItem("rgFold")||"{}");FOLDERS=JSON.parse(localStorage.getItem("rgFolders")||"[]");ORD=JSON.parse(localStorage.getItem("rgOrder")||"{}")||{};FCOL=JSON.parse(localStorage.getItem("rgFcol")||"[]")||[]}catch(e){}
 const SEP=" › ",FIXF=[...SGR,"音階","自訂曲目"],dOf=k=>SGRADE[k]||(k in U?"自訂曲目":"音階"),gOf=k=>FOLD[k]||dOf(k),cleanF=s=>String(s||"").replace(/[<>"›]/g,"").trim().slice(0,20);
 const parOf=p=>p.includes(SEP)?p.slice(0,p.lastIndexOf(SEP)):null,leafOf=p=>p.includes(SEP)?p.slice(p.lastIndexOf(SEP)+SEP.length):p,depthOf=p=>p.split(SEP).length-1;
@@ -1855,7 +1858,8 @@ async function initMic(){if(!window.isSecureContext||!navigator.mediaDevices||!n
  try{if(navigator.audioSession)navigator.audioSession.type="play-and-record"}catch(e){}
  try{const s=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:true}});
  MS=s;if(ac.state!=="running")await ac.resume().catch(()=>{});
- const src=ac.createMediaStreamSource(s);an=ac.createAnalyser();an.fftSize=2048;an.smoothingTimeConstant=0;src.connect(an);
+ const src=ac.createMediaStreamSource(s);an=ac.createAnalyser();an.fftSize=2048;an.smoothingTimeConstant=0;
+ /* 濾掉 450Hz 以下（直笛最低音 C 約 523Hz）：伴奏、低頻雜音都不會干擾音高偵測 */const hp1=ac.createBiquadFilter(),hp2=ac.createBiquadFilter();hp1.type=hp2.type="highpass";hp1.frequency.value=hp2.frequency.value=450;hp1.Q.value=hp2.Q.value=.7;src.connect(hp1);hp1.connect(hp2);hp2.connect(an);
  const z=ac.createGain();z.gain.value=0;an.connect(z);z.connect(ac.destination);
  buf=new Float32Array(2048);micOn=true;micUI();setTimeout(()=>{if(ac.state!=="running")ac.resume().catch(()=>{})},300)}
  catch(e){micOn=false;micUI();const n=e&&e.name;$("micmsg").textContent=n==="NotAllowedError"||n==="SecurityError"?(window.self!==window.top?"這個頁面嵌在 claude.ai 的視窗裡，嵌入視窗不允許使用麥克風（即使瀏覽器設定已允許）。請下載遊戲檔案，用 Chrome 或 Edge 直接開啟來玩。":"麥克風被封鎖了（"+n+"）。請按網址列的麥克風或鎖頭圖示改成「允許」後重新整理。"):n==="NotFoundError"?"找不到麥克風，請確認裝置有麥克風或已接上耳機麥克風。":"這個環境無法使用麥克風（"+(n||"不支援")+"）。請改用 Chrome／Edge／Safari 直接開啟頁面連結。"}}
@@ -2474,10 +2478,10 @@ function build(){M.classList.add("hub");
  M.innerHTML=`<div id="hubbg" aria-hidden="true">${SCENE}</div>
  <header id="hubtop"><button class="pf" data-a="pf" aria-label="我的資料"><i class="av"><span id="pfav">🎺</span><b id="pflv">Lv 1</b></i><span class="pfi"><span class="nm" id="pfnm"></span><span class="ti" id="pfti"></span><span class="xb"><i id="pfxp"></i><em id="pfxt"></em></span></span></button>
  <div class="res"><button class="rs" data-a="cls" title="切換班級">🏫 <b id="rcls"></b> ▾</button><span class="rs" title="金幣">💰<b id="rcoin">0</b></span><span class="rs" title="星星總數">⭐<b id="rstar">0</b></span><button class="rs" id="rmic" data-a="mic">🎤 開啟麥克風</button></div></header>
- <nav id="hubl" aria-label="任務與獎勵">${ib("cls","🏫","班級")}${ib("q","📜","任務")}${ib("shop","🛒","商店")}${ib("cert","🏅","證書設定")}</nav>
+ <nav id="hubl" aria-label="任務與獎勵">${ib("cls","🏫","班級")}${ib("shop","🛒","商店")}${ib("cert","🏅","證書設定")}</nav>
  <nav id="hubr" aria-label="工具">${ib("set","⚙️","設定")}${ib("scan","📷","樂譜")}${ib("fs","⛶","全螢幕")}</nav>
  <section id="hubc"><div id="hlogo"></div><div id="hqt"></div><button class="gobtn" data-a="songs">⚔ 開始闖關</button></section>
- <nav id="hubb" aria-label="主選單">${ib("songs","🎵","曲目闖關")}${ib("f","🖐","指法特訓")}${ib("r","🥁","節奏特訓")}${ib("t","🏫","小隊輪流")}${ib("q","📜","任務")}</nav>`;
+ <nav id="hubb" aria-label="主選單">${ib("songs","🎵","曲目闖關")}${ib("f","🖐","指法特訓")}${ib("t","🏫","小隊輪流")}</nav>`;
  $("hlogo").replaceWith(h1);if(wal)h1.after(wal);
  if(!RMq)[[8,62],[22,40],[70,58],[86,44],[50,30]].forEach(([x,d],i)=>{const n=document.createElement("span");n.className="hnote";n.textContent=["♪","♫","♩","♬","♪"][i];n.style.left=x+"%";n.style.top=d+30+"%";n.style.animationDelay=(i*1.3)+"s";M.appendChild(n)});
  const mk=(id,t,nodes)=>{const s=document.createElement("div");s.className="sheet";s.id="sh-"+id;s.hidden=true;s.innerHTML=`<div class="sp" role="dialog" aria-label="${t}"><div class="sh"><span>${t}</span><button class="sx" aria-label="關閉">✕</button></div><div class="sc"></div></div>`;
@@ -2598,7 +2602,7 @@ function qEdit(tg){const c=$("sh-q").querySelector(".sc"),first=songKeys0()[0]||
   if(b.dataset.rm){L.splice(i,1);dirty=true;draw();return}
   if(b.dataset.up&&i>0){[L[i-1],L[i]]=[L[i],L[i-1]];dirty=true;draw();return}
   if(b.dataset.dn&&i<L.length-1){[L[i+1],L[i]]=[L[i],L[i+1]];dirty=true;draw();return}
-  if(b.dataset.cancel){renderQ();return}
+  if(b.dataset.cancel){$("sh-q").hidden=true;hubRefresh();return}
   if(b.dataset.save){const cfg={main:E.main.filter(q=>SONGS[q.k]),side:E.side.filter(q=>SONGS[q.k])};if(G)QCALL.g[G]=cfg;else{QCALL.main=cfg.main;QCALL.side=cfg.side}qcSave();dirty=false;toast(`💾 ${G?grName(G):"預設"}任務已儲存`);draw();hubRefresh()}}}
 const songKeys0=()=>songGroups().gs.flatMap(x=>x[1]);
 const _tr=tracker;tracker=function(){_tr();const t=$("hqt"),k=counts(),n=k.d+k.s+k.m;
@@ -2917,6 +2921,61 @@ const _osPK=openSheet;openSheet=function(id){if(id==="pk"){mkSheet("pk","⚔️ 
 const _actPK=act;act=function(a){if(a==="pk")return openSheet("pk");return _actPK(a)};
 const _abPK=window.__afterBuild;window.__afterBuild=()=>{_abPK&&_abPK();const hb=$("hubb"),t=hb&&hb.querySelector('[data-a="t"]');if(hb&&!hb.querySelector('[data-a="pk"]')){const h=ib("pk","⚔️","排位戰");t?t.insertAdjacentHTML("afterend",h):hb.insertAdjacentHTML("beforeend",h)}};
 
+// ---- 🎹 伴奏：依樂譜鋼琴伴奏，跟著遊戲拍子播放（含前奏） ----
+// 右手實際播放低一個八度、所有伴奏音都低於直笛音域，避免麥克風把伴奏誤認成學生吹的音。
+const ACCD={
+ "祈禱":{bb:4,intro:2,
+  rh:["D5// G4// E5// G4// D5// G4// E5// G4// D5+E5+G5 F#4+D5+E5","D5// G4// E5// G4// D5// G4// E5// G4// A4+B4 D4+E4+B4",
+   "D4 E4/ G4/ A4 A4/ B4/","D4+E4+A4/ B4/ D5/ B4// A4// G4 E4","E4/ E4/ G4/ A4/ B4 B4/ A4/","D4+E4+A4 A4// B4// D5// B4// E5/ D5/ D5",
+   "D4 E4/ G4/ A4 A4/ D5/","E4+G4+B4/ D5/ E5/ D5// B4// A4 G4","E4 E4/ G4/ G4 G4/ E4/","E4 E4// G4// A4// B4// G4+B4+E5-"],
+  lh:["G2/ D3/ G3- D3","G2/ D3/ G3- D3",
+   "G2/ D3/ G3 D2/ A2/ D3","E2/ B2/ E3/ B2/ E2/ B2/ E2/ D2/","C2/ G2/ C3/ D3/ E3/ D3/ C3/ G2/","D2/ A2/ D3/ A2/ E3/ A2/ D3/ A2/",
+   "G2/ D3/ G3 D2/ A2/ D3","E2/ B2/ E3/ B2/ E2/ B2/ E2/ D2/","C2/ G2/ C3 D2/ A2/ D3","E2/ B2/ E3/ F#3/ E3 E2"]},
+ "蘇珊娜":{bb:4,intro:3,
+  rh:["C5+E5/ G4/ E5+G5/ E5+G5/ E5+G5/ G4/ E5+G5/ F5+A5/","E5+G5/ G4/ C5+E5/ G4/ G4+C5/ E4/ G4+C5/ D5/","C5+E5/ G4/ C5+E5/ G4/ B4+D5/ F#4/ B4+D5/ F4/",
+   "B4+D5/ F#4/ G4/ F4+B4+D5/ F4+B4+D5-",
+   "G4/. C4// E4+G4/ C4/ C4/ C4/ E4+G4/ E4+G4/","E4+G4/. C4// E4+G4/ C4/ C4/ G3/ C4/ D4/","E4+G4/ G3/ E4+G4/ G3/ E4+G4/ G3/ C4/ G3/","B3+D4/. G4// G#4/ A4/ B4/ G4/ B4/ G4/",
+   "G4/. C4// E4+G4/ C4/ C4/ C4/ E4+G4/ E4+G4/","E4+G4/. C4// E4+G4/ C4/ C4/ G3/ C4/ D4/","E4+G4/ G3/ E4+G4/ G3/ D4+F4/ G3/ D4+F4/ G3/","C4/. G3// E4/ C4/ G4/ C4/ E4/ C4/",
+   "C4+F4 A3 C4+F4 A3","C4+F4+A4 C4+F4+A4 C4 C4+F4+A4","C4+E4+G4 G4+C5+E5 E4+G4+C5 C4+E4+G4","D4+G4+B4 G#4 A4 G4",
+   "G4/. C4// E4+G4/ C4/ C4/ C4/ E4+G4/ E4+G4/","E4+G4/. C4// E4+G4/ C4/ C4/ G3/ C4/ D4/","E4+G4/ G3/ E4+G4/ G3/ D4+F4/ G3/ D4+F4/ G3/","C4/. G3// C4/ C4/ C4-"],
+  lh:["C3- G2-","C3- G2-","C3- G2-",
+   "C3 G2 G2-",
+   "C3- G2-","C3- G2-","C3- G2-","G2 E2 F2 G2",
+   "C3- G2-","C3- G2-","E2 E2 G2 G2","C3 C3 B2 Bb2",
+   "F2- C3-","F2- A2-","C3- G2-","G2 E2 F2 G2",
+   "C3- G2-","C3- G2-","E2 F#2 G2 G2","C3 G2 C2-"]}};
+// 曲目 → [伴奏來源, 從第幾小節（不含前奏）, 幾小節, 是否有前奏]
+const ACCMAP={"祈禱全":["祈禱",0,8,1],"祈禱1":["祈禱",0,2],"祈禱2":["祈禱",2,2],"祈禱3":["祈禱",4,2],"祈禱4":["祈禱",6,2],"噢!蘇珊娜":["蘇珊娜",0,17,1]};
+const APC={C:0,D:2,E:4,F:5,G:7,A:9,B:11};
+function accMidi(p,rh){const m=/^([A-G])([#b♯♭]?)(\d)$/.exec(p);if(!m)return 0;let n=12*(+m[3]+1)+APC[m[1]]+(m[2]==="#"||m[2]==="♯"?1:m[2]?-1:0);if(rh)n-=12;while(n>=70)n-=12;return n}
+function accBar(str,rh,b0,out){let b=b0;String(str).trim().split(/\s+/).filter(Boolean).forEach(t=>{const m=/^([^\-\/\.]+)(-*)(\/*)(\.?)$/.exec(t);if(!m)return;const d=(1+m[2].length)/Math.pow(2,m[3].length)*(m[4]?1.5:1);
+  if(m[1]!=="0"){const ns=m[1].split("+").map(p=>accMidi(p,rh)).filter(Boolean);if(ns.length)out.push({b,d,ns,rh})}b+=d});return b}
+function accFor(name){const M=ACCMAP[name];if(!M)return null;const D=ACCD[M[0]],out=[],bb=D.bb;let introB=0;
+ if(M[3]){introB=D.intro*bb;for(let i=0;i<D.intro;i++){accBar(D.rh[i],1,(i-D.intro)*bb,out);accBar(D.lh[i],0,(i-D.intro)*bb,out)}}
+ for(let k=0;k<M[2];k++){const i=D.intro+M[1]+k;if(i>=D.rh.length)break;accBar(D.rh[i],1,k*bb,out);accBar(D.lh[i],0,k*bb,out)}
+ out.sort((a,b)=>a.b-b.b);return{ev:out,introB}}
+const accVol=()=>{const v=+(($("accsel")||{}).value);return isFinite(v)?v:1};
+let ACCN=[],ACCG=null;
+function accOut(){if(!ACCG||ACCG.context!==ac){ACCG=ac.createGain();const f=ac.createBiquadFilter();f.type="lowpass";f.frequency.value=2200;ACCG.connect(f);f.connect(ac.destination)}ACCG.gain.value=.32*accVol();return ACCG}
+function accNote(n,when,dur,rh){const f=440*Math.pow(2,(n-69)/12),out=accOut(),g=ac.createGain(),len=Math.min(3,dur+.35),pk=rh?.22:.32;
+ g.gain.setValueAtTime(0,when);g.gain.linearRampToValueAtTime(pk,when+.008);g.gain.exponentialRampToValueAtTime(pk*.35,when+Math.min(.5,len*.5));g.gain.exponentialRampToValueAtTime(.0005,when+len);g.connect(out);
+ const parts=rh?[[1,1],[2,.1]]:[[1,1],[2,.35],[3,.15]];
+ parts.forEach(([h,a])=>{const o=ac.createOscillator(),og=ac.createGain();o.type="sine";o.frequency.value=f*h;og.gain.value=a;o.connect(og);og.connect(g);o.start(when);o.stop(when+len+.05);ACCN.push({o,g,end:when+len+.05})})}
+function accPlay(e,tt){const s=sec();e.ns.forEach((n,i)=>accNote(n,tt+(e.ns.length>2&&e.rh?i*.018:0),e.d*s,e.rh))}
+function accStop(){if(!ac)return;const t=ac.currentTime;ACCN.forEach(x=>{try{x.g.gain.cancelScheduledValues(t);x.g.gain.setValueAtTime(x.g.gain.value||.0005,t);x.g.gain.exponentialRampToValueAtTime(.0005,t+.08);x.o.stop(t+.1)}catch(e){}});ACCN=[]}
+function accSched(flush){if(!G||!G.acc||!ac)return;const t=ac.currentTime,s=sec(),A=G.acc;ACCN=ACCN.filter(x=>x.end>t);
+ while(A.i<A.ev.length){const e=A.ev[A.i],tt=G.t0+(e.b+G.ci)*s;if(!flush&&tt>t+.25)break;if(tt>=t-.04)accPlay(e,Math.max(tt,t));A.i++}}
+const _stACC=start;start=async function(n){accStop();const r=await _stACC.apply(this,arguments);
+ if(G&&G.name===n&&!G.over){const A=accVol()>0?accFor(n):null;if(A){G.acc={ev:A.ev,i:0};if(A.introB>G.ci)G.ci=A.introB}}return r};
+const _upACC=update;update=function(){_upACC.apply(this,arguments);if(G&&G.acc&&!G.over)accSched(false)};
+const _finACC=finish;finish=function(w){const had=G&&G.acc&&!G.over;_finACC(w);if(had)accSched(true)};
+const _tmACC=toMenu;toMenu=function(){accStop();_tmACC()};
+(function accUI(){const m=$("metro");if(!m||$("accsel"))return;const s=document.createElement("select");s.id="accsel";s.setAttribute("aria-label","伴奏");s.title="有伴奏的曲子（祈禱、噢!蘇珊娜）才會播放";
+ s.innerHTML='<option value="1">🎹 伴奏：開</option><option value=".45">🎹 伴奏：小聲</option><option value="0">🎹 伴奏：關</option>';try{const v=localStorage.getItem("rgAcc");if(v!=null)s.value=v}catch(e){}
+ s.onchange=()=>{try{localStorage.setItem("rgAcc",s.value)}catch(e){}if(ACCG)ACCG.gain.value=.32*accVol()};m.after(s)})();
+// 已攻下的城堡自動領取獎勵（任務頁已移除）
+const _finCQ=finish;finish=function(w){const f=G&&!G.over&&!G.norew;_finCQ(w);if(!f)return;try{mainWalk().forEach(r=>{if(r.done&&!r.got&&!r.lock)claimM(r.i)})}catch(e){}};
+
 window.hubRefresh=hubRefresh;
 // ---- 掛到遊戲上 ----
 const _hit=hit;hit=function(o,dt,b){const f0=G&&G.fever;(G.sh=G.sh||[]).push({t0:performance.now(),x:G.hx,y:ly(o.st),col:CL[o.c]});_hit(o,dt,b);if(G&&!f0&&G.fever)G.fvc=(G.fvc||0)+1};
@@ -2927,7 +2986,7 @@ const _fin2=finish;finish=function(w){const f=G&&!G.over&&!G.norew&&G.name&&G.na
  const x=w?20+G.hits:5+Math.floor(G.hits/2),c=w?10+s*5:0,up=gain(x,c);
  const newly=dailyList().filter(q=>(before[q.k]||0)<q.n&&dv(q)>=q.n&&!DY.c.includes(q.id));
  let d=$("oexp");if(!d){d=document.createElement("div");d.id="oexp";$("ostat").after(d)}
- d.innerHTML=`<span>⭐ EXP +${x}</span>${c?`<span>💰 +${c}</span>`:""}${up?`<span>🎉 升到 Lv ${lvInfo().l}！</span>`:""}`+newly.map(q=>`<span class="qn2">✅ 任務完成：${q.t}（回大廳領獎）</span>`).join("")};
+ d.innerHTML=`<span>⭐ EXP +${x}</span>${c?`<span>💰 +${c}</span>`:""}${up?`<span>🎉 升到 Lv ${lvInfo().l}！</span>`:""}`};
 try{const _f=fEnd;fEnd=function(){const r=_f.apply(this,arguments);bump("fd");bump("drill");gain(15,0);return r}}catch(e){}
 try{const _s=sEnd;sEnd=function(){const r=_s.apply(this,arguments);bump("fd");bump("drill");gain(10,0);return r}}catch(e){}
 try{const _r=rEnd;rEnd=function(){const r=_r.apply(this,arguments);bump("rd");bump("drill");gain(15,0);return r}}catch(e){}
@@ -3067,7 +3126,7 @@ window.rgSync={pull,push,meta:()=>M0};
 @keyframes sybn{50%{transform:translateX(-50%) scale(1.05)}}
 </style>
 
-<div id="rgver" aria-label="遊戲版本">版本 2026.11.10h</div>
+<div id="rgver" aria-label="遊戲版本">版本 2026.11.10i</div>
 <style>#rgver{position:fixed;left:8px;bottom:6px;z-index:2;font:700 12px/1.2 sans-serif;color:rgba(255,255,255,.75);text-shadow:0 1px 2px #000;pointer-events:none}</style>
 </body>
 </html>
