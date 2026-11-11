@@ -1831,6 +1831,12 @@ const SONGS={"夕陽中的銀髮":"3’. 4’/ 3’/ 5/ 4/ 2’/ | 1’- 3- | 5.
 "噢!蘇珊娜2":"0- 0 C4/ D4/ | E4 G4 G4. A4/ | G4 E4 C4. D4/ | E4 E4 D4 D4 | C4-. 0",
 "噢!蘇珊娜3":"F4- F4- | A4 A4- A4 | G4 G4 E4 C4 | D4-- 0",
 "噢!蘇珊娜4":"0- 0 C4/ D4/ | E4 G4 G4. A4/ | G4 E4 C4. D4/ | E4 E4 D4 D4 | C4-. 0",
+"新生王1":"C4 F4 F4. E4/ | F4 A4 A4 G4 | C5 C5 C5. Bb4/ | A4 G4 A4-",
+"新生王2":"C4 F4 F4. E4/ | F4 A4 A4 G4 | C5 G4 G4. E4/ | E4 D4 C4-",
+"新生王3":"C5 C5 C5 F4 | Bb4 A4 A4 G4 | C5 C5 C5 F4 | Bb4 A4 A4 G4",
+"新生王4":"D5 D5 D5. C5/ | Bb4 A4 Bb4- | G4 A4/ Bb4/ C5. F4/ | F4 G4 A4-",
+"新生王5":"D5. D5/ D5 C5 | Bb4 A4 Bb4- | G4 A4/ Bb4/ C5. F4/ | F4 G4 F4-",
+"新生王":"C4 F4 F4. E4/ | F4 A4 A4 G4 | C5 C5 C5. Bb4/ | A4 G4 A4- | C4 F4 F4. E4/ | F4 A4 A4 G4 | C5 G4 G4. E4/ | E4 D4 C4- | C5 C5 C5 F4 | Bb4 A4 A4 G4 | C5 C5 C5 F4 | Bb4 A4 A4 G4 | D5 D5 D5. C5/ | Bb4 A4 Bb4- | G4 A4/ Bb4/ C5. F4/ | F4 G4 A4- | D5. D5/ D5 C5 | Bb4 A4 Bb4- | G4 A4/ Bb4/ C5. F4/ | F4 G4 F4-",
 "噢!蘇珊娜":"0- 0 C4/ D4/ | E4 G4 G4. A4/ | G4 E4 C4. D4/ | E4 E4 D4 C4 | D4- 0 C4/ D4/ | E4 G4 G4. A4/ | G4 E4 C4. D4/ | E4 E4 D4 D4 | C4-. 0 | F4- F4- | A4 A4- A4 | G4 G4 E4 C4 | D4- 0 C4/ D4/ | E4 G4 G4. A4/ | G4 E4 C4. D4/ | E4 E4 D4 D4 | C4-. 0",
 "Mi/Re練習2":"G4 G4 G4 D4 | E4 E4 D4- | B4 B4 A4 A4 | G4-",
 "C大調音階(4拍)":"C4--- | D4--- | E4--- | F4--- | G4--- | A4--- | B4--- | C5--- | C5--- | B4--- | A4--- | G4--- | F4--- | E4--- | D4--- | C4---",
@@ -1848,7 +1854,7 @@ let U={},STARS={},G=null,ac=null,an=null,buf=null,micOn=false,LV=0,MS=null,FM=0;
 try{U=JSON.parse(localStorage.getItem("rgUser")||"{}");STARS=JSON.parse(localStorage.getItem("rgStars")||"{}")}catch(e){}
 const BI=Object.assign({},SONGS);Object.assign(SONGS,U);
 const sv=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
-const SGRADE={"夕陽中的銀髮":"六年級","夕陽中的銀髮・第一行":"六年級","夕陽中的銀髮・第二行":"六年級","夕陽中的銀髮・第三行":"六年級","夕陽中的銀髮・第四行":"六年級","小白花第一關 (Edelweiss)":"五年級 › 五上小白花","小白花第二關 (Edelweiss)":"五年級 › 五上小白花","小白花第三關 (Edelweiss)":"五年級 › 五上小白花","小白花第四關 (Edelweiss)":"五年級 › 五上小白花","小白花 (Edelweiss)":"五年級 › 五上小白花","永遠同在第一關":"五年級 › 五上永遠同在","永遠同在第二關":"五年級 › 五上永遠同在","永遠同在第三關":"五年級 › 五上永遠同在","永遠同在第四關":"五年級 › 五上永遠同在","永遠同在":"五年級 › 五上永遠同在","祈禱1":"四年級 › 四上祈禱","祈禱2":"四年級 › 四上祈禱","祈禱3":"四年級 › 四上祈禱","祈禱4":"四年級 › 四上祈禱","祈禱全":"四年級 › 四上祈禱","Mi/Re練習1":"四年級 › 基本練習","噢!蘇珊娜1":"四年級 › 噢!蘇珊娜","噢!蘇珊娜2":"四年級 › 噢!蘇珊娜","噢!蘇珊娜3":"四年級 › 噢!蘇珊娜","噢!蘇珊娜4":"四年級 › 噢!蘇珊娜","噢!蘇珊娜":"四年級 › 噢!蘇珊娜","Mi/Re練習2":"四年級 › 基本練習","C大調音階(4拍)":"音階","C大調音階(1拍)":"音階","C大調音階(半拍)":"音階"},SGR=["三年級","四年級","五年級","六年級"];
+const SGRADE={"夕陽中的銀髮":"六年級","夕陽中的銀髮・第一行":"六年級","夕陽中的銀髮・第二行":"六年級","夕陽中的銀髮・第三行":"六年級","夕陽中的銀髮・第四行":"六年級","小白花第一關 (Edelweiss)":"五年級 › 五上小白花","小白花第二關 (Edelweiss)":"五年級 › 五上小白花","小白花第三關 (Edelweiss)":"五年級 › 五上小白花","小白花第四關 (Edelweiss)":"五年級 › 五上小白花","小白花 (Edelweiss)":"五年級 › 五上小白花","永遠同在第一關":"五年級 › 五上永遠同在","永遠同在第二關":"五年級 › 五上永遠同在","永遠同在第三關":"五年級 › 五上永遠同在","永遠同在第四關":"五年級 › 五上永遠同在","永遠同在":"五年級 › 五上永遠同在","祈禱1":"四年級 › 四上祈禱","祈禱2":"四年級 › 四上祈禱","祈禱3":"四年級 › 四上祈禱","祈禱4":"四年級 › 四上祈禱","祈禱全":"四年級 › 四上祈禱","Mi/Re練習1":"四年級 › 基本練習","噢!蘇珊娜1":"四年級 › 噢!蘇珊娜","噢!蘇珊娜2":"四年級 › 噢!蘇珊娜","噢!蘇珊娜3":"四年級 › 噢!蘇珊娜","噢!蘇珊娜4":"四年級 › 噢!蘇珊娜","噢!蘇珊娜":"四年級 › 噢!蘇珊娜","新生王1":"五年級 › 新生王","新生王2":"五年級 › 新生王","新生王3":"五年級 › 新生王","新生王4":"五年級 › 新生王","新生王5":"五年級 › 新生王","新生王":"五年級 › 新生王","Mi/Re練習2":"四年級 › 基本練習","C大調音階(4拍)":"音階","C大調音階(1拍)":"音階","C大調音階(半拍)":"音階"},SGR=["三年級","四年級","五年級","六年級"];
 let FOLD={},FOLDERS=[],ORD={},FCOL=[];try{FOLD=JSON.parse(localStorage.getItem("rgFold")||"{}");FOLDERS=JSON.parse(localStorage.getItem("rgFolders")||"[]");ORD=JSON.parse(localStorage.getItem("rgOrder")||"{}")||{};FCOL=JSON.parse(localStorage.getItem("rgFcol")||"[]")||[]}catch(e){}
 const SEP=" › ",FIXF=[...SGR,"音階","自訂曲目"],dOf=k=>SGRADE[k]||(k in U?"自訂曲目":"音階"),gOf=k=>FOLD[k]||dOf(k),cleanF=s=>String(s||"").replace(/[<>"›]/g,"").trim().slice(0,20);
 const parOf=p=>p.includes(SEP)?p.slice(0,p.lastIndexOf(SEP)):null,leafOf=p=>p.includes(SEP)?p.slice(p.lastIndexOf(SEP)+SEP.length):p,depthOf=p=>p.split(SEP).length-1;
@@ -2610,7 +2616,8 @@ function hubRefresh(){if(!$("pfnm"))return;roll();const L=lvInfo();$("pfav").tex
 let QCALL=LS.get("rgQuestCfg",null);
 if(!QCALL||!Array.isArray(QCALL.main)){const pick=["夕陽中的銀髮・第一行","夕陽中的銀髮・第二行","夕陽中的銀髮・第三行","夕陽中的銀髮・第四行","夕陽中的銀髮"].filter(k=>SONGS[k]);QCALL={main:pick.map(k=>({k,s:2})),side:[]}}
 if(!Array.isArray(QCALL.side))QCALL.side=[];if(!QCALL.g||typeof QCALL.g!=="object"||Array.isArray(QCALL.g))QCALL.g={};
-{const live=q=>q&&SONGS[q.k],c0=JSON.stringify(QCALL);[QCALL,...Object.values(QCALL.g)].forEach(x=>{if(Array.isArray(x.main))x.main=x.main.filter(live);if(Array.isArray(x.side))x.side=x.side.filter(live)});if(JSON.stringify(QCALL)!==c0)LS.set("rgQuestCfg",QCALL)}
+{const live=q=>q&&SONGS[q.k],c0=JSON.stringify(QCALL);[QCALL,...Object.values(QCALL.g)].forEach(x=>{if(Array.isArray(x.main))x.main=x.main.filter(live);if(Array.isArray(x.side))x.side=x.side.filter(live)});if(!QCALL.xsw){const sub=[1,2,3,4,5].map(i=>"新生王"+i);[QCALL,...Object.values(QCALL.g)].forEach(x=>{if(!Array.isArray(x.main)||!Array.isArray(x.side))return;if(!x.main.some(q=>q.k==="新生王"))x.main.push({k:"新生王",s:2});sub.forEach(k=>{if(!x.side.some(q=>q.k===k))x.side.push({k,s:2})})});QCALL.xsw=1}
+if(JSON.stringify(QCALL)!==c0)LS.set("rgQuestCfg",QCALL)}
 // 年級任務：班級可手動指定年級（g），否則從班級名稱判斷（例如「四年一班」→ 4）
 const GRS=[3,4,5,6],grName=g=>GN[g-1]+"年級";
 const clsGrade=k=>k?(+k.g||gradeOf(k.name)||0):0;
@@ -3011,6 +3018,7 @@ const _abPK=window.__afterBuild;window.__afterBuild=()=>{_abPK&&_abPK();const hb
 // ---- 🎹 伴奏：依樂譜鋼琴伴奏，跟著遊戲拍子播放（含前奏） ----
 // 右手實際播放低一個八度、所有伴奏音都低於直笛音域，避免麥克風把伴奏誤認成學生吹的音。
 const ACCD={
+ "新生王":{bb:4,intro:8,rh:["C5 A4+F5 A4+F5. G4+E5/", "A4+F5 Bb4+G5 C5+A5 C5", "Bb4+D5 D5+F5 D5+F5. Bb4+F5/", "F4+A4+C5---", "C5 A4+F5 A4+F5. G4+E5/", "A4+F5 Bb4+G5 C5+A5 C5", "Bb4+D5 D5+F5 G4+D5+F5 A4+C5+E5", "F4+A4+C5---", "A4+C5+F5- A4+C5+F5-", "A4+C5+F5- A4+C5+F5-", "C5+E5+G5- C5+E5+G5-", "A4+C5+F5 G4+Bb4+C5 A4+C5+F5-", "A4+C5+F5- A4+C5+F5-", "A4+C5+F5- A4+C5+F5-", "G4+C5+E5- G4+C5+E5-", "G4+Bb4+C5 F4+G4+B4 E4+G4+C5-", "A4+C5+F5 C6 F4+A4+C5 A5", "F4+Bb4+D5 A5 G4+Bb4+C5+E5 C5", "A4+C5+F5 C6 F4+A4+C5 A5", "Bb4+D5+F5 A5 Bb4+D5+F5 C6", "F#4+A4+C5+D5- F#4+A4+C5+D5-", "G4+Bb4+D5 G4+Bb4 G4+Bb4+D5-", "G4+Bb4 C5 G4+Bb4+E5 C5", "F4+A4+C5 A4+C5 A4+C5+F5-", "F#4+A4+D5- F#4+A4+C5+D5-", "G4+Bb4+D5 G4+Bb4 G4+Bb4+D5-", "G4+Bb4 C5 G4+Bb4+E5 C5", "A4+C5+F5 A4+C5 F4+A4+C5+F5-"],lh:["F2+C3- C2+C3-", "Bb1+Bb2- A1+A2-", "G1+G2- A1+A2-", "F2+A2 C2+C3 F2+A2 C2+C3", "F2+C3- C2+C3-", "Bb1+Bb2- A1+A2-", "G1+G2- A1+A2-", "F2+F3 C2+C3 F2+F3-", "F2+F3- C2+C3-", "D2+A2- C2+A2-", "E2+E3- C2+C3-", "F2+C3 C2 F2+C3-", "F2+F3- C2+C3-", "D2+A2- C2+A2-", "C2+G2- C2+G2-", "C2 G1 C2-", "F2+F3- C2+C3-", "Bb1+Bb2- C2+C3-", "F2+F3- C2+C3-", "Bb1+Bb2- C2+C3-", "D2+D3- F#2+F#3-", "G1+G2 D2 G1+G2-", "C2+C3- C2+C3-", "F2+F3 C2+C3 F2+F3-", "G1+G2- F#1+F#2-", "G1+G2 D2 G1+G2-", "C2+C3- C2+C3-", "F2+F3 C2+C3 F1+F2-"]},
  "祈禱":{bb:4,intro:2,
   rh:["D5// G4// E5// G4// D5// G4// E5// G4// D5+E5+G5 F#4+D5+E5","D5// G4// E5// G4// D5// G4// E5// G4// A4+B4 D4+E4+B4",
    "D4 E4/ G4/ A4 A4/ B4/","D4+E4+A4/ B4/ D5/ B4// A4// G4 E4","E4/ E4/ G4/ A4/ B4 B4/ A4/","D4+E4+A4 A4// B4// D5// B4// E5/ D5/ D5",
@@ -3032,7 +3040,7 @@ const ACCD={
    "F2- C3-","F2- A2-","C3- G2-","G2 E2 F2 G2",
    "C3- G2-","C3- G2-","E2 F#2 G2 G2","C3 G2 C2-"]}};
 // 曲目 → [伴奏來源, 從第幾小節（不含前奏）, 幾小節, 是否有前奏]
-const ACCMAP={"祈禱全":["祈禱",0,8,1],"祈禱1":["祈禱",0,2],"祈禱2":["祈禱",2,2],"祈禱3":["祈禱",4,2],"祈禱4":["祈禱",6,2],"噢!蘇珊娜":["蘇珊娜",0,17,1],"噢!蘇珊娜1":["蘇珊娜",0,5],"噢!蘇珊娜2":["蘇珊娜",4,5],"噢!蘇珊娜3":["蘇珊娜",9,4],"噢!蘇珊娜4":["蘇珊娜",12,5]};
+const ACCMAP={"祈禱全":["祈禱",0,8,1],"祈禱1":["祈禱",0,2],"祈禱2":["祈禱",2,2],"祈禱3":["祈禱",4,2],"祈禱4":["祈禱",6,2],"噢!蘇珊娜":["蘇珊娜",0,17,1],"新生王": ["新生王", 0, 20, 1], "新生王1": ["新生王", 0, 4], "新生王2": ["新生王", 4, 4], "新生王3": ["新生王", 8, 4], "新生王4": ["新生王", 12, 4], "新生王5": ["新生王", 16, 4],"噢!蘇珊娜1":["蘇珊娜",0,5],"噢!蘇珊娜2":["蘇珊娜",4,5],"噢!蘇珊娜3":["蘇珊娜",9,4],"噢!蘇珊娜4":["蘇珊娜",12,5]};
 const APC={C:0,D:2,E:4,F:5,G:7,A:9,B:11};
 function accMidi(p,rh){const m=/^([A-G])([#b♯♭]?)(\d)$/.exec(p);if(!m)return 0;let n=12*(+m[3]+1)+APC[m[1]]+(m[2]==="#"||m[2]==="♯"?1:m[2]?-1:0);if(rh)n-=12;while(n>=70)n-=12;return n}
 function accBar(str,rh,b0,out){let b=b0;String(str).trim().split(/\s+/).filter(Boolean).forEach(t=>{const m=/^([^\-\/\.]+)(-*)(\/*)(\.?)$/.exec(t);if(!m)return;const d=(1+m[2].length)/Math.pow(2,m[3].length)*(m[4]?1.5:1);
@@ -3055,9 +3063,9 @@ function accSched(flush){if(!G||!G.acc||!ac)return;const t=ac.currentTime,s=sec(
 const _stACC=start;start=async function(n){accStop();const r=await _stACC.apply(this,arguments);
  if(G&&G.name===n&&!G.over){const A=accVol()>0?accFor(n):null;if(A){G.acc={ev:A.ev,i:0};if(A.introB>G.ci)G.ci=A.introB}}return r};
 const _upACC=update;update=function(){_upACC.apply(this,arguments);if(G&&G.acc&&!G.over)accSched(false)};
-const _finACC=finish;finish=function(w){const had=G&&G.acc&&!G.over;_finACC(w);if(had)accSched(true)};
+const _finACC=finish;finish=function(w){_finACC(w);accStop()};
 const _tmACC=toMenu;toMenu=function(){accStop();_tmACC()};
-(function accUI(){const m=$("metro");if(!m||$("accsel"))return;const s=document.createElement("select");s.id="accsel";s.setAttribute("aria-label","伴奏");s.title="有伴奏的曲子（祈禱、噢!蘇珊娜系列）才會播放";
+(function accUI(){const m=$("metro");if(!m||$("accsel"))return;const s=document.createElement("select");s.id="accsel";s.setAttribute("aria-label","伴奏");s.title="有伴奏的曲子（祈禱、噢!蘇珊娜、新生王系列）才會播放";
  s.innerHTML='<option value="1">🎹 伴奏：開</option><option value=".45">🎹 伴奏：小聲</option><option value="0">🎹 伴奏：關</option>';try{const v=localStorage.getItem("rgAcc");if(v!=null)s.value=v}catch(e){}
  s.onchange=()=>{try{localStorage.setItem("rgAcc",s.value)}catch(e){}if(ACCG)ACCG.gain.value=.32*accVol()};m.after(s)})();
 // 已攻下的城堡自動領取獎勵（任務頁已移除）
@@ -3256,7 +3264,7 @@ window.rgSync={pull,push,meta:()=>M0};
 @keyframes sybn{50%{transform:translateX(-50%) scale(1.05)}}
 </style>
 
-<div id="rgver" aria-label="遊戲版本">版本 2026.11.11i</div>
+<div id="rgver" aria-label="遊戲版本">版本 2026.11.11l</div>
 <style>#rgver{position:fixed;left:8px;bottom:6px;z-index:2;font:700 12px/1.2 sans-serif;color:rgba(255,255,255,.75);text-shadow:0 1px 2px #000;pointer-events:none}</style>
 </body>
 </html>
