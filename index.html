@@ -1770,6 +1770,16 @@ body:not(.tmode) #hubb [data-a="songs"],body:not(.tmode) [data-a="scan"],body:no
 @media (max-width:640px){.lbt{padding:0 60px}.lbt::before,.lbt::after{width:60px}}
 #hubl [data-a="cls"],#hubl [data-a="rank"]{display:none!important}
 #hubl [data-a="cert"]{display:none!important}
+.mgpick{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:20px;background:#cfe9f7 var(--hubimg) center bottom/cover no-repeat}
+.mgpick h2{margin:0;font-size:clamp(30px,5vw,52px);color:#fff;text-shadow:0 3px 0 #a0601e,0 0 14px rgba(160,96,30,.5)}
+.mggrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;width:min(900px,100%)}
+.mgb{display:flex;flex-direction:column;align-items:center;gap:4px;padding:20px 8px;border-radius:24px;border:4px solid #e8b84a;background:linear-gradient(#fffaf0,#ffe9b8);box-shadow:0 6px 0 #c98a3a;cursor:pointer;color:#5a3a12;font:inherit}
+.mgb i{font-style:normal;font-size:clamp(40px,6vw,60px)}.mgb b{font-size:clamp(22px,3vw,32px)}.mgb small{font-size:16px;color:#8a6a30;font-weight:700}
+.mgb.all{grid-column:1/-1;flex-direction:row;justify-content:center;gap:14px;padding:14px}.mgb.all i{font-size:44px}
+.mgb.last{box-shadow:0 6px 0 #c98a3a,0 0 0 5px #fff3a6}
+.mgb:disabled{opacity:.45;cursor:default}
+.mgb:not(:disabled):hover{transform:translateY(-3px)}
+@media (max-width:700px){.mggrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
 </head>
 <body>
@@ -1841,7 +1851,7 @@ const SONGS={"夕陽中的銀髮":"3’. 4’/ 3’/ 5/ 4/ 2’/ | 1’- 3- | 5.
 "Mi/Re練習2":"G4 G4 G4 D4 | E4 E4 D4- | B4 B4 A4 A4 | G4-",
 "C大調音階(4拍)":"C4--- | D4--- | E4--- | F4--- | G4--- | A4--- | B4--- | C5--- | C5--- | B4--- | A4--- | G4--- | F4--- | E4--- | D4--- | C4---",
 "C大調音階(1拍)":"C4 D4 E4 F4 | G4 A4 B4 C5 | C5 B4 A4 G4 | F4 E4 D4 C4",
-"C大調音階(半拍)":"D4/ | F4/"};
+"C大調音階(半拍)":"D4/ | F4/","F大調音階(4拍)":"F4--- | G4--- | A4--- | Bb4--- | C5--- | D5--- | E5--- | F5--- | F5--- | E5--- | D5--- | C5--- | Bb4--- | A4--- | G4--- | F4---","F大調音階(1拍)":"F4 G4 A4 Bb4 | C5 D5 E5 F5 | F5 E5 D5 C5 | Bb4 A4 G4 F4","F大調音階(半拍)":"F4/ G4/ A4/ Bb4/ C5/ D5/ E5/ F5/ | F5/ E5/ D5/ C5/ Bb4/ A4/ G4/ F4/","G大調音階(4拍)":"G4--- | A4--- | B4--- | C5--- | D5--- | E5--- | F#5--- | G5--- | G5--- | F#5--- | E5--- | D5--- | C5--- | B4--- | A4--- | G4---","G大調音階(1拍)":"G4 A4 B4 C5 | D5 E5 F#5 G5 | G5 F#5 E5 D5 | C5 B4 A4 G4","G大調音階(半拍)":"G4/ A4/ B4/ C5/ D5/ E5/ F#5/ G5/ | G5/ F#5/ E5/ D5/ C5/ B4/ A4/ G4/"};
 const CL=["","#ef4444","#fb923c","#facc15","#4ade80","#22d3ee","#6366f1","#d946ef"];
 const PT=/^([0-7]|[A-G][#b♯♭]?[3-7])([’']?)(-*)(\/*)(\.?)$/,PC={C:0,D:2,E:4,F:5,G:7,A:9,B:11},SF={C:"Do",D:"Re",E:"Mi",F:"Fa",G:"Sol",A:"La",B:"Si"},CI={C:1,D:2,E:3,F:4,G:5,A:6,B:7};
 const NM=["C","C♯","D","D♯","E","F","F♯","G","G♯","A","A♯","B"];
@@ -1854,20 +1864,22 @@ let U={},STARS={},G=null,ac=null,an=null,buf=null,micOn=false,LV=0,MS=null,FM=0;
 try{U=JSON.parse(localStorage.getItem("rgUser")||"{}");STARS=JSON.parse(localStorage.getItem("rgStars")||"{}")}catch(e){}
 const BI=Object.assign({},SONGS);Object.assign(SONGS,U);
 const sv=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
-const SGRADE={"夕陽中的銀髮":"六年級","夕陽中的銀髮・第一行":"六年級","夕陽中的銀髮・第二行":"六年級","夕陽中的銀髮・第三行":"六年級","夕陽中的銀髮・第四行":"六年級","小白花第一關 (Edelweiss)":"五年級 › 五上小白花","小白花第二關 (Edelweiss)":"五年級 › 五上小白花","小白花第三關 (Edelweiss)":"五年級 › 五上小白花","小白花第四關 (Edelweiss)":"五年級 › 五上小白花","小白花 (Edelweiss)":"五年級 › 五上小白花","永遠同在第一關":"五年級 › 五上永遠同在","永遠同在第二關":"五年級 › 五上永遠同在","永遠同在第三關":"五年級 › 五上永遠同在","永遠同在第四關":"五年級 › 五上永遠同在","永遠同在":"五年級 › 五上永遠同在","祈禱1":"四年級 › 四上祈禱","祈禱2":"四年級 › 四上祈禱","祈禱3":"四年級 › 四上祈禱","祈禱4":"四年級 › 四上祈禱","祈禱全":"四年級 › 四上祈禱","Mi/Re練習1":"四年級 › 基本練習","噢!蘇珊娜1":"四年級 › 噢!蘇珊娜","噢!蘇珊娜2":"四年級 › 噢!蘇珊娜","噢!蘇珊娜3":"四年級 › 噢!蘇珊娜","噢!蘇珊娜4":"四年級 › 噢!蘇珊娜","噢!蘇珊娜":"四年級 › 噢!蘇珊娜","新生王1":"五年級 › 新生王","新生王2":"五年級 › 新生王","新生王3":"五年級 › 新生王","新生王4":"五年級 › 新生王","新生王5":"五年級 › 新生王","新生王":"五年級 › 新生王","Mi/Re練習2":"四年級 › 基本練習","C大調音階(4拍)":"音階","C大調音階(1拍)":"音階","C大調音階(半拍)":"音階"},SGR=["三年級","四年級","五年級","六年級"];
+const SGRADE={"夕陽中的銀髮":"六年級","夕陽中的銀髮・第一行":"六年級","夕陽中的銀髮・第二行":"六年級","夕陽中的銀髮・第三行":"六年級","夕陽中的銀髮・第四行":"六年級","小白花第一關 (Edelweiss)":"五年級 › 五上小白花","小白花第二關 (Edelweiss)":"五年級 › 五上小白花","小白花第三關 (Edelweiss)":"五年級 › 五上小白花","小白花第四關 (Edelweiss)":"五年級 › 五上小白花","小白花 (Edelweiss)":"五年級 › 五上小白花","永遠同在第一關":"五年級 › 五上永遠同在","永遠同在第二關":"五年級 › 五上永遠同在","永遠同在第三關":"五年級 › 五上永遠同在","永遠同在第四關":"五年級 › 五上永遠同在","永遠同在":"五年級 › 五上永遠同在","祈禱1":"四年級 › 四上祈禱","祈禱2":"四年級 › 四上祈禱","祈禱3":"四年級 › 四上祈禱","祈禱4":"四年級 › 四上祈禱","祈禱全":"四年級 › 四上祈禱","Mi/Re練習1":"四年級 › 基本練習","噢!蘇珊娜1":"四年級 › 噢!蘇珊娜","噢!蘇珊娜2":"四年級 › 噢!蘇珊娜","噢!蘇珊娜3":"四年級 › 噢!蘇珊娜","噢!蘇珊娜4":"四年級 › 噢!蘇珊娜","噢!蘇珊娜":"四年級 › 噢!蘇珊娜","新生王1":"五年級 › 新生王","新生王2":"五年級 › 新生王","新生王3":"五年級 › 新生王","新生王4":"五年級 › 新生王","新生王5":"五年級 › 新生王","新生王":"五年級 › 新生王","Mi/Re練習2":"四年級 › 基本練習","C大調音階(4拍)":"四年級 › 音階","C大調音階(1拍)":"四年級 › 音階","C大調音階(半拍)":"四年級 › 音階","F大調音階(4拍)":"五年級 › 音階","F大調音階(1拍)":"五年級 › 音階","F大調音階(半拍)":"五年級 › 音階","G大調音階(4拍)":"五年級 › 音階","G大調音階(1拍)":"五年級 › 音階","G大調音階(半拍)":"五年級 › 音階"},SGR=["三年級","四年級","五年級","六年級"];
 let FOLD={},FOLDERS=[],ORD={},FCOL=[];try{FOLD=JSON.parse(localStorage.getItem("rgFold")||"{}");FOLDERS=JSON.parse(localStorage.getItem("rgFolders")||"[]");ORD=JSON.parse(localStorage.getItem("rgOrder")||"{}")||{};FCOL=JSON.parse(localStorage.getItem("rgFcol")||"[]")||[]}catch(e){}
-const SEP=" › ",FIXF=[...SGR,"音階","自訂曲目"],dOf=k=>SGRADE[k]||(k in U?"自訂曲目":"音階"),gOf=k=>FOLD[k]||dOf(k),cleanF=s=>String(s||"").replace(/[<>"›]/g,"").trim().slice(0,20);
+const SEP=" › ",FIXF=[...SGR,"自訂曲目"],dOf=k=>SGRADE[k]||(k in U?"自訂曲目":"音階"),gOf=k=>FOLD[k]||dOf(k),cleanF=s=>String(s||"").replace(/[<>"›]/g,"").trim().slice(0,20);
 const parOf=p=>p.includes(SEP)?p.slice(0,p.lastIndexOf(SEP)):null,leafOf=p=>p.includes(SEP)?p.slice(p.lastIndexOf(SEP)+SEP.length):p,depthOf=p=>p.split(SEP).length-1;
 function saveF(){sv("rgFold",FOLD);sv("rgFolders",FOLDERS);sv("rgOrder",ORD);sv("rgFcol",FCOL)}
 function addF(n){if(!n)return;const par=parOf(n);if(par)addF(par);if(!FIXF.includes(n)&&!FOLDERS.includes(n))FOLDERS.push(n)}
 const songKeys=()=>Object.keys(SONGS).filter(k=>k[0]!=="_");
-function knownPaths(){const s=new Set(FIXF);FOLDERS.forEach(f=>s.add(f));songKeys().forEach(k=>s.add(gOf(k)));[...s].forEach(p=>{let q=parOf(p);while(q){s.add(q);q=parOf(q)}});return s}
+function knownPaths(){const s=new Set(FIXF);FOLDERS.forEach(f=>s.add(f));songKeys().forEach(k=>{s.add(gOf(k));alsoOf(k).forEach(x=>s.add(x))});[...s].forEach(p=>{let q=parOf(p);while(q){s.add(q);q=parOf(q)}});return s}
 function kidsOf(p,all){const pre=[...FOLDERS,...all];return [...new Set(pre)].filter(x=>parOf(x)===p)}
-function allFolders(){const all=[...knownPaths()],tops=[...SGR];FOLDERS.forEach(f=>!parOf(f)&&!tops.includes(f)&&tops.push(f));all.forEach(f=>!parOf(f)&&!tops.includes(f)&&f!=="音階"&&f!=="自訂曲目"&&tops.push(f));tops.push("音階","自訂曲目");
+function allFolders(){const all=[...knownPaths()],tops=[...SGR];FOLDERS.forEach(f=>!parOf(f)&&!tops.includes(f)&&tops.push(f));all.forEach(f=>!parOf(f)&&!tops.includes(f)&&f!=="音階"&&f!=="自訂曲目"&&tops.push(f));if(all.includes("音階"))tops.push("音階");tops.push("自訂曲目");
  const out=[],walk=p=>{out.push(p);kidsOf(p,all).forEach(walk)};tops.forEach(walk);return out}
 function sortIn(p,a){const o=ORD[p]||[];return a.map((k,i)=>[k,i]).sort((x,y)=>{const ix=o.indexOf(x[0]),iy=o.indexOf(y[0]);return(ix<0?1e4+x[1]:ix)-(iy<0?1e4+y[1]:iy)}).map(x=>x[0])}
-const songsIn=p=>sortIn(p,songKeys().filter(k=>gOf(k)===p));
-const hasAny=p=>songKeys().some(k=>{const g=gOf(k);return g===p||g.startsWith(p+SEP)});
+const ALSO={"C大調音階(4拍)":["五年級 › 音階"],"C大調音階(1拍)":["五年級 › 音階"],"C大調音階(半拍)":["五年級 › 音階"],"F大調音階(4拍)":["六年級 › 音階"],"F大調音階(1拍)":["六年級 › 音階"],"F大調音階(半拍)":["六年級 › 音階"],"G大調音階(4拍)":["六年級 › 音階"],"G大調音階(1拍)":["六年級 › 音階"],"G大調音階(半拍)":["六年級 › 音階"]};
+const alsoOf=k=>FOLD[k]?[]:(ALSO[k]||[]).filter(()=>SONGS[k]&&!(k in U&&!(k in BI)));
+const songsIn=p=>sortIn(p,songKeys().filter(k=>gOf(k)===p||alsoOf(k).includes(p)));
+const hasAny=p=>songKeys().some(k=>[gOf(k),...alsoOf(k)].some(g=>g===p||g.startsWith(p+SEP)));
 function songGroups(){const ks=songKeys(),gs=[];allFolders().forEach(t=>{const a=songsIn(t);if(a.length||SGR.includes(t)||FOLDERS.includes(t))gs.push([t,a])});return{gs,total:ks.length}}
 function newFolder(par){const n=cleanF(prompt(par?"在「"+leafOf(par)+"」裡新增子資料夾，名稱（例如：第一行、分解練習）":"新資料夾名稱（例如：期末考曲目、合奏團）"));if(!n)return null;const p=par?par+SEP+n:n;addF(p);if(par)FCOL=FCOL.filter(x=>x!==par);saveF();return p}
 function renPath(f,n){const re=x=>x===f?n:x.startsWith(f+SEP)?n+x.slice(f.length):x;Object.keys(FOLD).forEach(k=>FOLD[k]=re(FOLD[k]));FOLDERS=FOLDERS.map(re).filter((x,i,a)=>a.indexOf(x)===i&&!FIXF.includes(x));
@@ -2782,7 +2794,10 @@ function mapSpots(nt){const S=[];for(let k=0;k<nt;k++){const T=TILES[k%2],flip=k
 // 曲名分組：「祈禱1」「祈禱全」→ 祈禱；「小白花第二關 (Edelweiss)」→ 小白花；「夕陽中的銀髮・第一行」→ 夕陽中的銀髮
 const songGroup=k=>String(k).replace(/\s*[\(（][^)）]*[\)）]\s*/g,"").replace(/[・·].*$/,"").replace(/第[一二三四五六七八九十\d]+[關行段]$/,"").replace(/(\d+|全)$/,"").trim()||k;
 let MITEMS=[],MLAY=null;
-function mapItems(){const M=mainWalk().filter(r=>r.ex).map(r=>({...r,kind:"m"})),S=QC.side.map((q,i)=>{const ex=!!SONGS[q.k],st=ex?stOf(q.k):0;return{q,i,ex,st,done:ex&&st>=q.s,kind:"s"}}).filter(r=>r.ex);
+// 冒險地圖：先選年級，只顯示該年級資料夾裡的曲子（全年級＝全部）
+let MGRADE=null;const MGS=["三年級","四年級","五年級","六年級"];
+const inGrade=k=>!MGRADE||MGRADE==="全年級"||[gOf(k),...alsoOf(k)].some(g=>g===MGRADE||g.startsWith(MGRADE+" › "));
+function mapItems(){const M=mainWalk().filter(r=>r.ex&&inGrade(r.q.k)).map(r=>({...r,kind:"m"})),S=QC.side.map((q,i)=>{const ex=!!SONGS[q.k],st=ex?stOf(q.k):0;return{q,i,ex,st,done:ex&&st>=q.s,kind:"s"}}).filter(r=>r.ex&&inGrade(r.q.k));
  const all=M.concat(S),go=[];all.forEach(r=>{const g=songGroup(r.q.k);if(!go.includes(g))go.push(g)});
  return all.map((r,o)=>({r,o,g:go.indexOf(songGroup(r.q.k))})).sort((a,b)=>a.g-b.g||(a.r.kind===b.r.kind?a.o-b.o:a.r.kind==="m"?-1:1)).map(x=>x.r)}
 // 依序把城堡放進空地；支線小城堡不放在地圖中央的大城堡位置
@@ -2796,6 +2811,8 @@ function castleSVG(sp,st,i){const x=sp.x,y=sp.y;let body,top;
  return `<g class="mc ${st}" data-ci="${i}" tabindex="0" role="button" aria-label="第 ${i+1} 座城堡"><g>${st==="done"?`<ellipse cx="${x}" cy="${y+20}" rx="200" ry="150" fill="url(#mpglow)"/>`:""}${body}${st==="done"?`<g transform="translate(${x} ${top-10})"><path d="M0 -70V-10" stroke="#4a3a2a" stroke-width="5"/><path d="M0 -70L56 -54L0 -38Z" fill="#ef4444" stroke="#4a3a2a" stroke-width="3"/><text x="0" y="-18" text-anchor="middle" font-size="40">🏆</text></g>`:""}</g></g>`}
 const HKEY="rgMapPos";
 function renderMap(){qcApply();const sh=mkSheet("map","🗺️ 冒險地圖");sh.classList.add("mpfull");const c=sh.querySelector(".sc"),W=mapItems(),n=W.length;MITEMS=W;
+ if(MGRADE==null){const cnt=g=>{MGRADE=g;const n=mapItems().length;MGRADE=null;return n};let last="";try{last=localStorage.getItem("rgMapGrade")||""}catch(e){}
+  c.innerHTML=`<div class="mgpick"><h2>🗺️ 選擇年級，出發冒險！</h2><div class="mggrid">${[...MGS,"全年級"].map(g=>{const k=cnt(g);return`<button class="mgb${g===last?" last":""}${g==="全年級"?" all":""}" data-mg="${g}"${k?"":" disabled"}><i>${g==="全年級"?"🌍":"🏰"}</i><b>${g}</b><small>${k?k+" 座城堡":"還沒有曲目"}</small></button>`}).join("")}</div><button class="qa" data-mback="1" style="font-size:20px">⬅ 回大廳</button></div>`;c.onclick=mapClick;return}
  if(!n){c.innerHTML=`<div class="mpempty"><p style="font-size:22px;font-weight:900">地圖上的城堡就是「主線任務」的曲子。老師還沒設定，請按下方按鈕挑選曲子。</p><p><button class="qa claim" data-mset="1" style="font-size:20px">⚙ 設定城堡曲目</button> <button class="qa" data-mback="1" style="font-size:20px">⬅ 回大廳</button></p></div>`;c.onclick=mapClick;return}
  const L=mapLayout(W);MLAY=L;const SP=L.S,P=SP.map(s=>[s.x,s.y]),VW=(L.tiles-1)*TSTEP+TILE_W,VH=TILE_H;
  // 相鄰兩張地圖重疊一段並淡入，接縫看不出來
@@ -2811,7 +2828,7 @@ function renderMap(){qcApply();const sh=mkSheet("map","🗺️ 冒險地圖");sh
  <g id="mpnear" pointer-events="none" opacity="0"><rect x="-120" y="-36" width="240" height="56" rx="28" fill="#e53935" stroke="#fff" stroke-width="5"/><text x="0" y="2" text-anchor="middle" font-size="28" font-weight="900" fill="#fff">⚔ 點我進入關卡</text></g>
  <g id="hero" transform="translate(${sv.x} ${sv.y})" pointer-events="none"><ellipse cx="0" cy="6" rx="52" ry="14" fill="rgba(0,0,0,.25)"/><g id="herob"><circle cx="0" cy="-48" r="44" fill="#fff" stroke="#e53935" stroke-width="6"/><foreignObject x="-60" y="-112" width="120" height="120"><div xmlns="http://www.w3.org/1999/xhtml" class="mphero">${avHTML()}</div></foreignObject></g><text x="0" y="44" text-anchor="middle" font-size="26" font-weight="900" fill="#e53935" stroke="#fff" stroke-width="6" paint-order="stroke">${esc(curC().name)}</text></g>
  </svg></div>
- <div class="mphud"><button class="qa mpback" data-mback="1">⬅ 回大廳</button><b class="mpcount">🏰 已攻下 ${done} / ${n} 座城堡</b><span class="mptip">點地面走路・點城堡進關卡・拖曳畫面看四周・右下小地圖可快速移動</span><button class="qa" data-mset="1">⚙ 城堡曲目</button></div>
+ <div class="mphud"><button class="qa mpback" data-mback="1">⬅ 回大廳</button><button class="qa mggo" data-mgsel="1">📘 ${MGRADE} ▾</button><b class="mpcount">🏰 已攻下 ${done} / ${n} 座城堡</b><span class="mptip">點地面走路・點城堡進關卡・拖曳畫面看四周・右下小地圖可快速移動</span><button class="qa" data-mset="1">⚙ 城堡曲目</button></div>
  <div id="mpinfo"></div>
  <div class="mpmini" id="mpmini" aria-label="小地圖"><svg viewBox="0 0 ${VW} ${VH}"><defs>${fdefs("mm")}</defs>${tiles("mm")}${W.map((r,i)=>`<g><circle cx="${P[i][0]}" cy="${P[i][1]}" r="70" fill="${r.done?"#f5b301":"#fff"}" stroke="#4a3a2a" stroke-width="14"/><text x="${P[i][0]}" y="${P[i][1]+30}" text-anchor="middle" font-size="90" font-weight="900" fill="#4a3a2a">${r.done?"✓":i+1}</text></g>`).join("")}<rect id="mmview" fill="rgba(255,255,255,.18)" stroke="#e53935" stroke-width="18" rx="20"/><circle id="mmhero" r="60" fill="#e53935" stroke="#fff" stroke-width="16"/></svg></div>`;
  if(HERO&&HERO.raf)cancelAnimationFrame(HERO.raf);
@@ -2847,7 +2864,7 @@ document.addEventListener("keydown",e=>{const s=$("sh-map");if(!HERO||!s||s.hidd
 document.addEventListener("keyup",e=>{if(!HERO)return;const k=e.key.length===1?e.key.toLowerCase():e.key;delete HERO.keys[k]});
 function showCastle(i){MSEL=i;const r=MITEMS[i],d=$("mpinfo");if(!r||!d)return;const R=r.kind==="s"?cRew(r.q):mRew(r.i);
  d.innerHTML=`<div class="qr${r.done?" done":""}"><div class="qi">${r.done?"🏆":"⚔️"}</div><div><div class="qt">${r.kind==="s"?"🏠 支線小城堡":"🏰 "+(CNAME[spotOf(i).cn]||"城堡")}　《${esc(r.q.k)}》</div><div class="qd">${r.done?"已經攻下！可以再挑戰拿更多星星。":`吹到 ${"★".repeat(r.q.s)} 就能擊破這座城堡。目前 ${"★".repeat(r.st)}${"☆".repeat(3-r.st)}`}</div><div class="qw">攻下獎勵 💰${R.c}　⭐EXP ${R.x}${r.kind==="s"?"":"　🏅 段位 +40"}</div></div><div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end">${r.ex?`<button class="qa claim" data-attack="${esc(r.q.k)}" style="font-size:20px">⚔ ${r.done?"再挑戰":"進入關卡"}</button>`:""}<button class="qa" data-mclose="1">離開</button></div></div>`}
-function mapClick(e){const t=e.target;if(t.closest("[data-mback]")){leaveMap();return}if(t.closest("[data-mset]")){leaveMap(()=>{openSheet("q");TAB="m";qEdit()});return}if(t.closest("[data-mclose]")){$("mpinfo").innerHTML="";MSEL=null;return}const a=t.closest("[data-attack]");if(a){const k=a.dataset.attack;leaveMap(()=>goSong(k));return}}
+function mapClick(e){const t=e.target;{const g=t.closest("[data-mg]");if(g&&!g.disabled){MGRADE=g.dataset.mg;try{localStorage.setItem("rgMapGrade",MGRADE)}catch(x){}MSEL=null;LS.set(HKEY,null);renderMap();return}if(t.closest("[data-mgsel]")){MGRADE=null;MSEL=null;renderMap();return}}if(t.closest("[data-mback]")){leaveMap();return}if(t.closest("[data-mset]")){leaveMap(()=>{openSheet("q");TAB="m";qEdit()});return}if(t.closest("[data-mclose]")){$("mpinfo").innerHTML="";MSEL=null;return}const a=t.closest("[data-attack]");if(a){const k=a.dataset.attack;leaveMap(()=>goSong(k));return}}
 
 // ---- 商店 ----
 let STAB="acc";
@@ -2888,7 +2905,7 @@ const _hr=hubRefresh;hubRefresh=function(){_hr();if(!$("pfnm"))return;const av=$
  const R=rankOf(myRP().rp);let rk=$("pfrk");if(!rk){rk=document.createElement("button");rk.id="pfrk";rk.type="button";rk.setAttribute("aria-label","查看所有段位");rk.addEventListener("click",e=>{e.stopPropagation();e.preventDefault();openTier()});$("pfti").after(rk)}rk.innerHTML=rkChip(R)+"<i>▸</i>";
  const hv=$("hav");hv&&(hv.innerHTML=`<i>${avHTML()}</i>${esc(curC().name)}・${R.ic} ${R.name}`)};
 const _rp0=renderPf;renderPf=function(){_rp0();const a=$("sh-pf").querySelector(".av");if(a){a.style.cssText+=";"+frameSt();a.innerHTML=avHTML()+`<b>Lv ${lvInfo().l}</b>`}};
-const _os=openSheet;openSheet=function(id){if(id==="map"){mapFlash(()=>{const sh=mkSheet("map","🗺️ 冒險地圖");sh.classList.add("mpfull");document.body.appendChild(sh);[...M.querySelectorAll(".sheet")].forEach(x=>x.hidden=true);M.style.visibility="hidden";sh.hidden=false;renderMap()});return}if(id==="rank"){mkSheet("rank","🏆 班級排行榜");renderRank()}_os(id)};
+const _os=openSheet;openSheet=function(id){if(id==="map"){mapFlash(()=>{const sh=mkSheet("map","🗺️ 冒險地圖");sh.classList.add("mpfull");document.body.appendChild(sh);[...M.querySelectorAll(".sheet")].forEach(x=>x.hidden=true);M.style.visibility="hidden";sh.hidden=false;MGRADE=null;renderMap()});return}if(id==="rank"){mkSheet("rank","🏆 班級排行榜");renderRank()}_os(id)};
 const _act=act;act=function(a){if(a==="map"||a==="rank")return openSheet(a);return _act(a)};
 window.__afterBuild=()=>{$("hubl").querySelector('[data-a="cls"]').insertAdjacentHTML("afterend",ib("rank","🏆","排行榜"));$("hubb").insertAdjacentHTML("afterbegin",ib("map","🗺️","冒險地圖"));
  const gb=M.querySelector(".gobtn");gb&&(gb.dataset.a="map",gb.textContent="🗺️ 出發冒險");const sh=$("sh-shop");sh&&(sh.querySelector(".sh span").textContent="🛒 商店");
@@ -3270,7 +3287,7 @@ window.rgSync={pull,push,meta:()=>M0};
 @keyframes sybn{50%{transform:translateX(-50%) scale(1.05)}}
 </style>
 
-<div id="rgver" aria-label="遊戲版本">版本 2026.11.11m</div>
+<div id="rgver" aria-label="遊戲版本">版本 2026.11.11o</div>
 <style>#rgver{position:fixed;left:8px;bottom:6px;z-index:2;font:700 12px/1.2 sans-serif;color:rgba(255,255,255,.75);text-shadow:0 1px 2px #000;pointer-events:none}</style>
 </body>
 </html>
