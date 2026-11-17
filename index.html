@@ -1899,7 +1899,7 @@ body:not(.tmode) [data-a="scan"],body:not(.tmode) [data-qe],body:not(.tmode) #sy
 @keyframes wbob{50%{transform:translateY(-6px)}}
 #welc .wmon{display:flex;gap:clamp(2px,1.2vw,18px);justify-content:center;align-items:flex-end;flex-wrap:wrap;max-width:min(1100px,98vw)}
 #welc .wmon figure{margin:0;display:flex;flex-direction:column;align-items:center;animation:wmon .6s cubic-bezier(.3,1.7,.5,1) both;position:relative}
-#welc .wmon figure::before{content:"";position:absolute;bottom:22px;left:50%;width:78%;height:16px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(rgba(40,20,60,.55),transparent 70%)}
+#welc .wmon figure::before{content:"";position:absolute;bottom:-4px;left:50%;width:78%;height:16px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(rgba(40,20,60,.55),transparent 70%)}
 #welc .wmon img{position:relative;height:clamp(80px,min(22vh,17vw),210px);width:auto;filter:drop-shadow(0 4px 4px rgba(0,0,0,.35)) drop-shadow(0 0 10px rgba(255,230,160,.35));animation:whop 1.8s ease-in-out infinite}
 #welc .wmon figcaption{position:relative;margin-top:2px;padding:2px 14px;font-size:clamp(13px,1.6vw,18px);font-weight:900;color:#f6e7a8;letter-spacing:.1em;background:linear-gradient(#45397f,#2a2158);border:2px solid #c9963f;border-radius:8px;box-shadow:0 3px 0 #1d1640;white-space:nowrap}
 @media (max-height:700px){#welc .wmon img{height:clamp(70px,15vh,130px)}}
@@ -3761,7 +3761,7 @@ function welcome(again){let w=$("welc");if(w)w.remove();w=document.createElement
  w.innerHTML=`<img class="wbg" alt="" src="${bg}"><div class="wsh"></div><div class="wray"></div>${notes}${spark}
  <div class="wbox"><div class="wsub">歡迎來到</div>
   <h1 class="wt">${[..."直笛守護者"].map((c,i)=>`<span style="animation-delay:${.75+i*.13}s">${c}</span>`).join("")}</h1>
-  <div class="wmon">${WHERO.map(([n,u],i)=>`<figure style="animation-delay:${1.4+i*.14}s"><img alt="${n}" src="${u}" style="animation-delay:${2.3+i*.27}s"><figcaption>${n}</figcaption></figure>`).join("")}</div>
+  <div class="wmon">${WHERO.map(([n,u],i)=>`<figure style="animation-delay:${1.4+i*.14}s"><img alt="${n}" src="${u}" style="animation-delay:${2.3+i*.27}s"></figure>`).join("")}</div>
   <p class="wq">${again?"要換到哪個年級呢？":"請選擇你的年級，開始冒險！"}</p>
   <div class="wg">${G4.map(([g,n,ic,c1,c2],i)=>`<button class="wgb${g===PICKG?" cur":""}" data-g="${g}" style="--c1:${c1};--c2:${c2};animation-delay:${2+i*.12}s"><i>${ic}</i><b>${n}</b></button>`).join("")}</div>
   ${again?`<button class="wx" data-g="0">取消</button>`:""}</div>`;
@@ -3998,7 +3998,7 @@ window.rgSync={pull,push,meta:()=>M0};
 @keyframes sybn{50%{transform:translateX(-50%) scale(1.05)}}
 </style>
 
-<div id="rgver" aria-label="遊戲版本">版本 2026.11.17f</div>
+<div id="rgver" aria-label="遊戲版本">版本 2026.11.17g</div>
 <style>#rgver{position:fixed;left:8px;bottom:6px;z-index:2;font:700 12px/1.2 sans-serif;color:rgba(255,255,255,.75);text-shadow:0 1px 2px #000;pointer-events:none}</style>
 </body>
 </html>
